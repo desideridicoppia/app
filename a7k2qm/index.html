@@ -1,0 +1,1022 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#12060b">
+<title>Desideri</title>
+<link rel="icon" type="image/png" sizes="32x32" href="../img/icones/favicon-32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../img/icones/favicon-96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../img/icones/apple-touch-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Desideri">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noite:#12060b; --noite-2:#1c0910; --vinho:#3d0b1a; --vinho-2:#5a1026;
+  --carmim:#b0123e; --brasa:#ff4d5e; --brasa-2:#ff8a5b;
+  --champ:#e9b98f; --champ-2:#f4d6bc; --creme:#f7ede6; --fumaca:#b9a2a8; --linha:rgba(233,185,143,.16);
+  --leve:#e9b98f; --romantico:#e58ba0; --picante:#e0234e; --ousado:#ff5a36; --proibido:#c9a15b;
+  --serif:'Cormorant Garamond', Georgia, 'Times New Roman', serif; --sans:'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --topo:env(safe-area-inset-top,0px); --base:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow-x:hidden}
+body{background:radial-gradient(900px 600px at 50% -12%, #3e0d1d 0%, transparent 62%),radial-gradient(600px 500px at 110% 105%, #2a0814 0%, transparent 60%),var(--noite);
+  color:var(--creme);font:15px/1.5 var(--sans);overscroll-behavior:none;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.06;mix-blend-mode:overlay;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+input,textarea,select{font:inherit;color:inherit}
+#app{position:relative;z-index:1;max-width:520px;margin:0 auto;min-height:100%;padding:calc(18px + var(--topo)) 20px calc(28px + var(--base))}
+.tela{animation:entra .35s ease both} .tela.fica{animation:none}
+@keyframes entra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* topo */
+.barra{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;min-height:40px}
+.voltar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--linha);color:var(--champ)}
+.barra h1{font:600 26px/1 var(--serif);font-style:italic;text-align:center;flex:1}
+.barra .acao{width:40px;height:40px;display:grid;place-items:center;color:var(--champ)}
+.selo{font:700 10px var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--champ)}
+.sub{color:var(--fumaca);font-size:14px}
+
+/* boas-vindas: o envelope que abre toda vez que o app abre */
+.envelope-tela{height:calc(100vh - 46px - var(--topo) - var(--base));height:calc(100dvh - 46px - var(--topo) - var(--base));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(26px,5.5vh,56px);text-align:center}
+.env-topo{padding-top:0}
+.env-topo .d{font:500 clamp(40px,6.5vh,56px)/.9 var(--serif);font-style:italic;color:var(--creme)}
+.env-topo .c{font:600 11px var(--sans);letter-spacing:.5em;text-transform:uppercase;color:var(--champ);margin-top:10px;padding-left:.5em}
+.env-meio{position:relative;display:flex;flex-direction:column;align-items:center;width:100%}
+.env-meio::before{content:"";position:absolute;left:50%;top:55%;width:min(150%,100vw);aspect-ratio:1;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(176,18,62,.32),transparent 70%);pointer-events:none;z-index:-1;animation:brilha 4s ease-in-out infinite}
+@keyframes brilha{50%{opacity:.6}}
+.envelope-tela .selo{margin-bottom:22px}
+.env-pe{font:500 clamp(18px,2.6vh,21px)/1.35 var(--serif);font-style:italic;color:var(--champ-2);max-width:300px;padding-bottom:0}
+.env-pe span{display:block;font:500 12.5px/1.5 var(--sans);font-style:normal;color:var(--fumaca);margin-top:6px}
+/* corações: sobem devagar atrás do envelope e explodem quando a carta abre */
+.coracoes{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.coracao{position:absolute;width:var(--t);height:var(--t);color:var(--c);opacity:0;filter:drop-shadow(0 0 6px currentColor);animation:sobe var(--d) cubic-bezier(.3,.6,.4,1) var(--a,0s) forwards}
+@keyframes sobe{0%{transform:translate(0,0) rotate(var(--r0)) scale(.6);opacity:0}15%{opacity:var(--o)}75%{opacity:var(--o)}100%{transform:translate(var(--x),var(--y)) rotate(var(--r1)) scale(1);opacity:0}}
+@media (prefers-reduced-motion:reduce){.coracoes{display:none} *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+/* ao abrir, o texto em volta sai de cena e a carta sobe sozinha */
+.env-topo,.envelope-tela .selo,.toque,.env-pe{transition:opacity .45s ease}
+.envelope-tela.aberta .env-topo,.envelope-tela.aberta .selo,.envelope-tela.aberta .toque,.envelope-tela.aberta .env-pe{opacity:0;animation:none}
+.env{position:relative;width:min(88vw,380px);aspect-ratio:1.45;perspective:1200px;margin:0 auto}
+.env .corpo,.env .aba,.env .bolso{position:absolute;left:0;right:0}
+.env .corpo{inset:0;border-radius:14px;background:linear-gradient(160deg,#4a0e1f,#1c0710);box-shadow:0 30px 70px rgba(0,0,0,.6), inset 0 0 0 1px rgba(233,185,143,.3)}
+.env .papel{position:absolute;left:7%;right:7%;top:8%;bottom:10%;border-radius:8px;background:linear-gradient(170deg,#fbf4ee,#efe0d4);transition:transform 1s cubic-bezier(.2,.75,.25,1) .55s;z-index:1}
+.env .papel::after{content:"";position:absolute;inset:6px;border-radius:5px;border:1px solid rgba(90,16,38,.18)}
+.env .bolso{top:0;bottom:0;z-index:2;border-radius:14px;background:linear-gradient(170deg,#5a1026,#2a0813);clip-path:polygon(0 0,50% 56%,100% 0,100% 100%,0 100%)}
+.env .aba{top:0;height:58%;z-index:3;transform-origin:50% 0;transition:transform .8s cubic-bezier(.4,0,.2,1);clip-path:polygon(0 0,100% 0,50% 100%);
+  background:linear-gradient(180deg,#6a1430,#3d0b1a)}
+.env .aba::after{content:"";position:absolute;inset:0;clip-path:polygon(0 0,100% 0,50% 100%);border-top:1px solid rgba(233,185,143,.45)}
+.env .cera{position:absolute;left:50%;top:58%;z-index:4;width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:50%;display:grid;place-items:center;
+  background:radial-gradient(circle at 35% 30%,#d4204c,#7a0a26 70%);box-shadow:0 8px 18px rgba(0,0,0,.5), inset 0 -4px 8px rgba(0,0,0,.35), inset 0 3px 6px rgba(255,255,255,.18);transition:opacity .35s, transform .35s;animation:respira 2.4s ease-in-out infinite}
+.env .cera img{width:56px;filter:grayscale(1) brightness(2.2) sepia(.6) hue-rotate(-20deg) saturate(1.4) drop-shadow(0 1px 0 rgba(0,0,0,.3));opacity:.85}
+@keyframes respira{50%{transform:scale(1.05)}}
+.env.aberto .cera{opacity:0;transform:scale(.6);animation:none}
+.env.aberto .aba{transform:rotateX(180deg);z-index:0}
+.env.aberto .papel{transform:translateY(-62%)}
+.toque{margin-top:26px;font:600 12px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--champ);animation:pisca 2s ease-in-out infinite}
+@keyframes pisca{50%{opacity:.45}}
+.carta-boas{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:calc(16px + var(--topo)) 16px calc(16px + var(--base));background:rgba(10,3,6,.55);backdrop-filter:blur(4px);animation:entra .5s ease both}
+.carta-boas .folha-papel{width:100%;max-width:440px;max-height:100%;display:flex;border-radius:20px;background:linear-gradient(170deg,#fbf4ee 0%,#efe0d4 100%);color:#2a0a14;
+  padding:9px;box-shadow:0 40px 90px rgba(0,0,0,.6);position:relative;animation:desdobra .7s cubic-bezier(.2,.75,.25,1) both}
+/* o fio da moldura fica no miolo que rola: o texto some dentro dele, sem cruzar a linha */
+.carta-boas .rolo{flex:1;min-height:0;overflow:auto;border-radius:13px;border:1px solid rgba(90,16,38,.18);padding:clamp(14px,2.4vh,22px) 17px clamp(12px,2vh,16px);scrollbar-width:none;display:flex;flex-direction:column;justify-content:center}
+.carta-boas .rolo::-webkit-scrollbar{display:none}
+@keyframes desdobra{from{transform:scale(.6) translateY(20%);opacity:0}to{transform:none;opacity:1}}
+/* a carta cabe inteira na tela: tamanhos pela altura (vh), sem rolagem */
+.folha-papel .lab{width:clamp(64px,11vh,104px);display:block;margin:0 auto 2px}
+.folha-papel h2{font:500 clamp(28px,4.4vh,36px)/1.05 var(--serif);font-style:italic;text-align:center}
+.folha-papel .assin{font:600 10px var(--sans);letter-spacing:.3em;text-transform:uppercase;color:#7a2a3e;text-align:center;margin:6px 0 clamp(10px,2vh,18px)}
+.folha-papel p{font:500 clamp(16px,2.35vh,18.5px)/1.42 var(--serif);margin:0 0 8px;text-align:center}
+.folha-papel p.sussurro{font-style:italic;color:#7a2a3e;margin-bottom:0}
+.folha-papel h4{font:700 10px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:#7a2a3e;margin:clamp(12px,2.2vh,20px) 0 8px}
+.folha-papel ul{list-style:none;margin:0;display:grid;gap:clamp(5px,1vh,9px)}
+.folha-papel li{position:relative;padding-left:18px;font:500 clamp(13px,1.85vh,14.5px)/1.45 var(--sans);color:#4a2430}
+.folha-papel li::before{content:"";position:absolute;left:3px;top:.6em;width:5px;height:5px;border-radius:50%;background:#b0123e}
+.folha-papel .priv{margin:clamp(12px,2.2vh,18px) 0 clamp(12px,2.2vh,18px);border-radius:14px;padding:clamp(10px,1.6vh,14px) 14px;background:rgba(90,16,38,.07);font:500 clamp(12.5px,1.75vh,13.5px)/1.45 var(--sans);color:#4a2430;text-align:center}
+.folha-papel .priv b{color:#5a1026}
+
+/* abertura */
+.abertura{text-align:center;padding-top:2vh}
+/* altura pela tela e largura pela proporção: com width e height do HTML o Safari esticava o lábio */
+.abertura .labios{height:min(19vh,160px);width:auto;max-width:70%;display:block;margin:0 auto 8px;filter:drop-shadow(0 18px 40px rgba(176,18,62,.35))}
+h1.marca,h1.env-topo,h1.selo{font-weight:inherit;margin:0} h1.marca,h1.env-topo{font-size:inherit}
+.marca .d{font:500 46px/.9 var(--serif);font-style:italic}
+.marca .c{font:600 11px var(--sans);letter-spacing:.5em;text-transform:uppercase;color:var(--champ);margin-top:10px;padding-left:.5em}
+.abertura p.convite{font:500 20px/1.3 var(--serif);font-style:italic;color:var(--champ-2);margin:16px auto 10px;max-width:330px}
+.campo{display:block;text-align:left;margin:12px 0}
+.campo span{display:block;font:700 10.5px var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--fumaca);margin:0 0 7px 4px}
+.campo input,.campo select,.campo textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--linha);border-radius:14px;padding:15px 16px;font-size:17px;outline:none;transition:border-color .2s}
+.campo input:focus,.campo textarea:focus{border-color:rgba(233,185,143,.55)}
+.campo textarea{min-height:96px;resize:none;font-size:16px}
+.campo select{appearance:none;-webkit-appearance:none}
+.duplo{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* botões */
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;font:500 22px/1.1 var(--serif);font-style:italic;letter-spacing:.01em;padding:16px 22px;border-radius:999px;transition:transform .12s, opacity .2s}
+.btn:active{transform:scale(.98)}
+/* vinho profundo com fio champanhe: luxo é contraste baixo e acabamento, não neon */
+.btn.p{background:linear-gradient(180deg,#8c1034 0%,#5e0b23 100%);color:#f8e2cc;border:1px solid rgba(233,185,143,.6);
+  box-shadow:inset 0 1px 0 rgba(255,235,215,.22),inset 0 -10px 18px rgba(0,0,0,.18),0 12px 28px rgba(0,0,0,.45)}
+.btn.s{border:1px solid rgba(233,185,143,.42);color:var(--champ)}
+.btn.f{color:var(--fumaca);padding:12px;font:600 12px var(--sans);font-style:normal;letter-spacing:.14em;text-transform:uppercase}
+.btn[disabled]{opacity:.4}
+.linha-btn{display:flex;gap:10px;margin-top:14px}
+.linha-btn .btn{flex:1}
+
+/* níveis */
+/* níveis lado a lado em colunas iguais: todos aparecem, sem rolagem escondendo o último */
+.niveis{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:6px;margin:0 0 18px}
+.nv{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;border:1px solid var(--linha);border-radius:14px;padding:10px 2px 9px;
+  font:600 clamp(10.5px,3vw,12.5px)/1 var(--sans);color:var(--fumaca);white-space:nowrap;transition:all .2s}
+.nv .ni{display:grid;place-items:center} .nv .ni svg{width:19px;height:19px}
+.nv.on{color:var(--creme);border-color:rgba(233,185,143,.6);background:rgba(233,185,143,.08)}
+.nv > svg{position:absolute;top:5px;right:5px;width:10px;height:10px;opacity:.75;color:var(--proibido)}
+.esquentar{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px;color:var(--fumaca);margin:0 2px 16px}
+.chave{width:44px;height:26px;border-radius:999px;background:rgba(255,255,255,.1);position:relative;transition:background .2s;flex:none}
+.chave::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--creme);transition:transform .2s}
+.chave.on{background:var(--carmim)} .chave.on::after{transform:translateX(18px)}
+
+/* menu */
+.ola{margin:4px 0 16px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.ola .selo{display:block;margin-bottom:6px}
+.ola h2{font:500 32px/1.05 var(--serif);font-style:italic} .ola h2 .e{color:var(--champ);font-style:italic}
+.modos{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modo{position:relative;text-align:left;border-radius:20px;padding:18px 16px 16px;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;
+  background:linear-gradient(160deg,rgba(90,16,38,.55),rgba(28,9,16,.9));border:1px solid var(--linha);transition:transform .15s}
+.modo:active{transform:scale(.98)}
+.modo.grande{grid-column:1/-1;min-height:170px;background:radial-gradient(120% 140% at 100% 0%,rgba(255,77,94,.28),transparent 55%),linear-gradient(160deg,rgba(90,16,38,.7),rgba(28,9,16,.95))}
+.modo .ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:rgba(233,185,143,.08);border:1px solid rgba(233,185,143,.22);color:var(--champ-2)}
+.modo b{font:600 23px/1.05 var(--serif);font-style:italic;display:block;margin-top:14px}
+.modo small{display:block;color:var(--fumaca);font-size:12.5px;margin-top:4px;line-height:1.35}
+.modo .cad{position:absolute;top:14px;right:14px;color:var(--proibido)}
+.secao{font:700 10.5px var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--champ);margin:28px 2px 12px;display:flex;align-items:center;gap:10px}
+.secao::after{content:"";flex:1;height:1px;background:var(--linha)}
+.lista{display:grid;gap:10px}
+.item{display:flex;align-items:center;gap:14px;text-align:left;border:1px solid var(--linha);border-radius:16px;padding:14px 16px;background:rgba(255,255,255,.02)}
+.item .ic{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:rgba(233,185,143,.08);color:var(--champ-2);flex:none}
+.item b{font:600 19px var(--serif);font-style:italic;display:block}
+.item small{color:var(--fumaca);font-size:12.5px}
+.item .fim{margin-left:auto;color:var(--fumaca)}
+
+/* cartas */
+.palco{perspective:1400px;display:flex;justify-content:center;margin:6px 0 18px}
+/* a carta encolhe pela altura da tela para os botões caberem sem rolar */
+.carta{width:min(100%,340px,calc((100vh - 250px - var(--topo) - var(--base)) * .714));width:min(100%,340px,calc((100dvh - 250px - var(--topo) - var(--base)) * .714));aspect-ratio:5/7;position:relative;transform-style:preserve-3d;transition:transform .75s cubic-bezier(.2,.75,.25,1)}
+.carta.virada{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:24px;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden}
+.verso{background:radial-gradient(120% 90% at 50% 0%, #5a1026 0%, #2a0813 55%, #16060c 100%);border:1px solid rgba(233,185,143,.35);
+  box-shadow:0 34px 70px rgba(0,0,0,.55), inset 0 0 0 9px #1a070e, inset 0 0 0 10px rgba(233,185,143,.45);display:grid;place-items:center}
+.verso::before{content:"";position:absolute;inset:18px;border-radius:14px;opacity:.5;
+  background-image:repeating-linear-gradient(45deg,rgba(233,185,143,.08) 0 1px,transparent 1px 16px),repeating-linear-gradient(-45deg,rgba(233,185,143,.08) 0 1px,transparent 1px 16px)}
+.verso img{width:62%;position:relative;filter:drop-shadow(0 10px 24px rgba(0,0,0,.5))}
+.verso .nome{position:absolute;bottom:34px;left:0;right:0;text-align:center;font:500 22px var(--serif);font-style:italic;color:var(--champ-2)}
+.frente{transform:rotateY(180deg);background:linear-gradient(170deg,#fbf4ee 0%,#efe0d4 100%);color:#2a0a14;box-shadow:0 34px 70px rgba(0,0,0,.55);padding:26px 24px 22px;display:flex;flex-direction:column}
+.frente::after{content:"";position:absolute;inset:9px;border-radius:17px;border:1px solid rgba(90,16,38,.18);pointer-events:none}
+.frente .cab{display:flex;justify-content:space-between;align-items:center;font:700 10px var(--sans);letter-spacing:.24em;text-transform:uppercase}
+.frente .cab .ni{display:inline-block;margin-right:7px;vertical-align:-3px} .frente .cab .ni svg{width:14px;height:14px}
+.frente .tipo{font:600 17px var(--serif);font-style:italic;letter-spacing:0;text-transform:none;color:#7a2a3e}
+.frente .txt{font:500 clamp(23px,6.6vw,29px)/1.22 var(--serif);margin:auto 0;letter-spacing:.003em}
+.frente .txt small{display:block;font:500 15px/1.45 var(--sans);color:#6f4652;margin-top:14px}
+.frente .rod{display:flex;justify-content:space-between;align-items:center;font:600 11px var(--sans);color:#7a5560;letter-spacing:.04em}
+.frente.escura{background:linear-gradient(170deg,#1e0a11 0%,#100408 100%);color:var(--creme);border:1px solid rgba(201,161,91,.5)}
+.frente.escura::after{border-color:rgba(201,161,91,.35)} .frente.escura .tipo{color:var(--proibido)} .frente.escura .rod,.frente.escura .txt small{color:#b39a7a}
+.estrela{color:#b0123e} .estrela.vazia{color:#c9a7a7}
+.frente.escura .estrela.vazia{color:#6d5a4c}
+
+/* cronômetro */
+/* cronômetro: um botão de verdade, com o tempo à vista. Toque começa, toque pausa, no fim toque recomeça */
+.crono{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:6px 16px 6px 6px;
+  background:linear-gradient(180deg,#8c1034,#5e0b23);color:#f8e2cc;border:1px solid rgba(233,185,143,.6);box-shadow:inset 0 1px 0 rgba(255,235,215,.2),0 8px 18px rgba(90,16,38,.35)}
+.crono .cr-ic{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:rgba(255,235,215,.16);flex:none}
+.crono .cr-ic svg{width:14px;height:14px}
+.crono .cr-txt{font:700 11px var(--sans);letter-spacing:.14em;text-transform:uppercase}
+.crono .cr-t{font:600 19px/1 var(--serif);font-variant-numeric:tabular-nums;min-width:38px;text-align:left}
+.crono .cr-barra{position:absolute;left:0;bottom:0;height:3px;width:100%;background:var(--champ);transform-origin:left;transition:transform 1s linear}
+.crono[data-estado="pausado"]{background:linear-gradient(180deg,#5e0b23,#3d0b1a)}
+.crono.fim{animation:pulsa .5s ease 4;background:linear-gradient(180deg,#c9a15b,#8a6a33);color:#1a0a07}
+.crono.fim .cr-barra{display:none}
+@keyframes pulsa{50%{transform:scale(1.08)}}
+
+/* escolha verdade ou desafio */
+.escolha{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.escolha .btn{padding:18px 10px;font-size:25px}
+.vez{text-align:center;margin:0 0 10px}
+.vez b{font:500 30px var(--serif);font-style:italic;color:var(--champ-2)}
+.vez span{display:block;font:700 10px var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--fumaca);margin-bottom:4px}
+.aviso{position:fixed;left:50%;bottom:calc(26px + var(--base));transform:translateX(-50%);background:#2a0d17;border:1px solid rgba(233,185,143,.35);color:var(--champ-2);
+  padding:12px 18px;border-radius:999px;font:600 13px var(--sans);z-index:50;animation:entra .3s ease;white-space:nowrap;box-shadow:0 14px 34px rgba(0,0,0,.45)}
+
+/* roleta */
+.roleta-box{position:relative;width:min(100%,360px);margin:8px auto 22px;aspect-ratio:1}
+.roleta-box .disco{width:100%;height:100%;display:block}
+#roda{transition:transform 4.6s cubic-bezier(.12,.67,.1,1);transform-box:view-box;transform-origin:0 0}   /* o centro do viewBox é o 0,0 */
+.ponteiro{position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:34px;height:44px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
+.resultado{position:fixed;inset:0;z-index:40;background:rgba(10,3,6,.72);backdrop-filter:blur(6px);display:grid;place-items:center;padding:24px;animation:entra .3s ease}
+.resultado .cartao{width:min(100%,380px);text-align:center;border-radius:24px;padding:30px 24px 22px;background:linear-gradient(170deg,#fbf4ee,#efe0d4);color:#2a0a14;box-shadow:0 30px 70px rgba(0,0,0,.6)}
+.resultado .cartao.escura{background:linear-gradient(170deg,#1e0a11,#100408);color:var(--creme);border:1px solid rgba(201,161,91,.5)}
+.resultado .t{font:500 32px/1.15 var(--serif);font-style:italic;margin:12px 0 18px}
+.resultado .selo{color:#7a2a3e} .resultado .cartao.escura .selo{color:var(--proibido)}
+.resultado .linha-btn .btn.s{color:#5a1026;border-color:rgba(90,16,38,.35)}
+.resultado .cartao.escura .linha-btn .btn.s{color:var(--champ);border-color:rgba(233,185,143,.42)}
+.btn.trocar{display:flex;gap:8px;margin-top:6px} .btn.trocar svg{flex:none}
+.centro-crono{display:flex;justify-content:center;margin:12px 0 8px}
+
+/* dados */
+.mesa{display:flex;justify-content:center;gap:26px;margin:30px 0 26px;perspective:1800px}
+.dado{width:126px;height:126px;position:relative;transform-style:preserve-3d;transition:transform 1.6s cubic-bezier(.2,.8,.2,1)}
+.dado .fc{position:absolute;inset:0;border-radius:22px;display:grid;place-items:center;text-align:center;padding:12px;font:600 19px/1.08 var(--serif);font-style:italic;
+  background:linear-gradient(145deg,#fbf2ea,#e6d2c3);color:#3d0b1a;box-shadow:inset 0 -8px 16px rgba(61,11,26,.14), inset 0 0 0 1px rgba(90,16,38,.12);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.dado.b .fc{background:linear-gradient(145deg,#4a0e1f,#250710);color:var(--champ-2);box-shadow:inset 0 -8px 16px rgba(0,0,0,.3), inset 0 0 0 1px rgba(233,185,143,.3)}
+.dado .f1{transform:translateZ(63px)} .dado .f2{transform:rotateY(180deg) translateZ(63px)} .dado .f3{transform:rotateY(90deg) translateZ(63px)}
+.dado .f4{transform:rotateY(-90deg) translateZ(63px)} .dado .f5{transform:rotateX(90deg) translateZ(63px)} .dado .f6{transform:rotateX(-90deg) translateZ(63px)}
+.frase-dado{text-align:center;font:500 30px/1.15 var(--serif);font-style:italic;min-height:72px;color:var(--champ-2)}
+.tempos{display:flex;justify-content:center;gap:8px;margin:12px 0 4px}
+.tempos button{border:1px solid var(--linha);border-radius:999px;padding:8px 14px;font:600 12.5px var(--sans);color:var(--fumaca)}
+.tempos button.on{color:var(--creme);border-color:rgba(233,185,143,.6);background:rgba(233,185,143,.08)}
+
+/* match */
+.passa{text-align:center;padding-top:8vh}
+.passa .grande{font:500 40px/1.05 var(--serif);font-style:italic;margin:16px 0 12px}
+.passa p{color:var(--fumaca);max-width:320px;margin:0 auto 28px}
+.progresso{height:3px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin:4px 0 22px}
+.progresso i{display:block;height:100%;background:linear-gradient(90deg,var(--carmim),var(--brasa));transition:width .3s}
+.desejo{min-height:300px;border-radius:24px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:30px 24px;margin-bottom:18px;
+  background:radial-gradient(100% 80% at 50% 0%,rgba(255,77,94,.18),transparent 60%),linear-gradient(170deg,rgba(90,16,38,.6),rgba(20,6,11,.95));border:1px solid var(--linha);animation:entra .3s ease}
+.desejo .selo{margin-bottom:16px}
+.desejo .t{font:500 32px/1.15 var(--serif);font-style:italic}
+.match-res{display:grid;gap:10px;margin:18px 0 22px}
+.match-res .m{border-radius:16px;padding:16px 18px;border:1px solid rgba(233,185,143,.32);background:linear-gradient(90deg,rgba(176,18,62,.22),rgba(255,255,255,.02));font:500 21px var(--serif);font-style:italic;animation:entra .4s ease both}
+.vazio{text-align:center;color:var(--fumaca);padding:30px 10px;font-size:14px}
+
+/* quiz */
+/* partida: o placar dos dois fica em volta do nome de quem joga */
+.vez.partida{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}
+.vez .pt{font:600 28px/1 var(--serif);color:var(--fumaca);transition:color .2s}
+.vez .pt small{display:block;font:600 10.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;margin:5px auto 0;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vez .pt.ativo{color:var(--champ-2)}
+.escolha .btn{flex-direction:column;gap:3px}
+.escolha .btn small{font:600 10.5px var(--sans);font-style:normal;letter-spacing:.18em;text-transform:uppercase;opacity:.75}
+/* fim de partida */
+.fim-partida{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;height:calc(100vh - 46px - var(--topo) - var(--base));height:calc(100dvh - 46px - var(--topo) - var(--base))}
+.fim-partida .coroa{color:var(--proibido);filter:drop-shadow(0 6px 18px rgba(201,161,91,.35))} .fim-partida .coroa svg{width:58px;height:58px}
+.fim-partida h2{font:500 clamp(34px,5.4vh,44px)/1.05 var(--serif);font-style:italic}
+.fim-partida p{color:var(--fumaca);max-width:320px}
+.fim-partida .placar{width:100%;margin:4px 0}
+.fim-partida .acoes{width:100%;display:grid;gap:10px;margin-top:6px}
+.match-res .m{text-align:left;width:100%;position:relative}
+.match-res .m.on{border-color:var(--proibido);background:linear-gradient(90deg,rgba(201,161,91,.22),rgba(176,18,62,.18))}
+.match-res .m.on::after{content:"Desejo da noite";position:absolute;top:-9px;right:14px;font:700 9px var(--sans);letter-spacing:.18em;text-transform:uppercase;background:var(--proibido);color:#1a0a07;padding:3px 8px;border-radius:999px}
+.placar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;border:1px solid var(--linha);border-radius:18px;padding:12px 16px;margin-bottom:18px}
+.placar div{text-align:center} .placar b{display:block;font:600 30px var(--serif)} .placar small{color:var(--fumaca);font-size:12px}
+.placar .x{font:500 18px var(--serif);font-style:italic;color:var(--champ)}
+
+/* noites */
+.noites{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.noite{aspect-ratio:1;border-radius:14px;display:grid;place-items:center;font:600 20px var(--serif);border:1px solid var(--linha);background:linear-gradient(160deg,rgba(90,16,38,.5),rgba(20,6,11,.9));position:relative}
+.noite.feita{color:var(--brasa);background:linear-gradient(160deg,rgba(176,18,62,.32),rgba(40,8,18,.9));border-color:rgba(255,77,94,.35)}
+.noite.feita svg{width:46%;height:46%;filter:drop-shadow(0 0 8px rgba(255,77,94,.55))}
+.noite.feita small{position:absolute;top:5px;left:7px;font:600 11px var(--serif);color:var(--champ)}
+.passos{list-style:none;counter-reset:p;text-align:left;margin:6px 0 18px}
+.passos li{counter-increment:p;position:relative;padding:10px 0 10px 40px;border-top:1px solid rgba(90,16,38,.15);font-size:15px;line-height:1.45}
+.passos li::before{content:counter(p);position:absolute;left:0;top:9px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#5a1026;color:#fbf4ee;font:700 12px var(--sans)}
+
+/* bloqueio */
+.folha{position:fixed;inset:0;z-index:45;background:rgba(10,3,6,.7);backdrop-filter:blur(6px);display:flex;align-items:flex-end;animation:entra .25s ease}
+.folha .corpo{width:100%;max-width:520px;margin:0 auto;border-radius:26px 26px 0 0;background:linear-gradient(180deg,#24090f,#14060b);border:1px solid rgba(201,161,91,.35);border-bottom:0;padding:26px 22px calc(26px + var(--base))}
+.folha h3{font:500 30px/1.1 var(--serif);font-style:italic;margin:10px 0 8px}
+.folha p{color:var(--fumaca);margin-bottom:18px}
+.folha ul{list-style:none;margin:0 0 20px;display:grid;gap:8px}
+.folha li{padding-left:22px;position:relative;font-size:14.5px}
+.op-niveis{display:grid;gap:8px;margin:14px 0 10px}
+.op-nivel{display:flex;align-items:center;gap:14px;text-align:left;border:1px solid var(--linha);border-radius:16px;padding:13px 16px;background:rgba(255,255,255,.02)}
+.op-nivel.on{border-color:rgba(233,185,143,.6);background:rgba(233,185,143,.08)}
+.op-nivel .ni{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(233,185,143,.07);flex:none} .op-nivel .ni svg{width:22px;height:22px}
+.op-nivel b{display:block;font:600 21px/1.1 var(--serif);font-style:italic} .op-nivel small{color:var(--fumaca);font-size:12.5px}
+.op-nivel .fim{margin-left:auto;color:var(--champ)} .op-nivel .fim svg{width:18px;height:18px}
+.chip-nivel{display:flex;align-items:center;gap:9px;border:1px solid rgba(233,185,143,.38);border-radius:999px;padding:7px 10px 7px 8px;background:rgba(233,185,143,.06);text-align:left;flex:none}
+.chip-nivel .ni{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.25)} .chip-nivel .ni svg{width:17px;height:17px}
+.chip-nivel small{display:block;font:700 9.5px var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--fumaca)}
+.chip-nivel span:nth-child(2){font:600 17px/1.05 var(--serif);font-style:italic}
+.chip-nivel > svg{width:14px;height:14px;color:var(--champ);transform:rotate(90deg)}
+.nivel-ind svg{width:20px;height:20px}
+.folha li::before{content:"";position:absolute;left:4px;top:8px;width:7px;height:7px;border-radius:50%;background:var(--proibido)}
+
+/* instalar */
+/* menu: uma tela só, sem rolagem. A grade dos jogos ocupa o que sobra da altura */
+.tela.menu{display:flex;flex-direction:column;height:calc(100vh - 46px - var(--topo) - var(--base));height:calc(100dvh - 46px - var(--topo) - var(--base))}
+.menu .barra{margin-bottom:6px}
+/* marca mais comprida que "Desejos do Casal" (ex.: "Desideri di Coppia"): numa linha só, com menos espaço entre as letras */
+.barra h1.selo.longo{white-space:nowrap;letter-spacing:.1em;font-size:21px}
+.menu .ola{margin:0 0 clamp(8px,1.6vh,14px)} .menu .ola h2{font-size:clamp(25px,4vh,32px)}
+.menu .modos{flex:1;min-height:0;grid-template-rows:1.2fr 1fr 1fr;gap:10px}
+.menu .modo,.menu .modo.grande{min-height:0;padding:clamp(10px,1.7vh,16px) 14px}
+.menu .modo .ic{width:clamp(30px,4.4vh,40px);height:clamp(30px,4.4vh,40px);border-radius:11px}
+.menu .modo .ic svg{width:60%;height:60%}
+.menu .modo b{font-size:clamp(18px,2.7vh,23px);margin-top:6px}
+.menu .modo small{font-size:12px;margin-top:2px}
+@media (max-height:720px){.menu .modo:not(.grande) small{display:none}}
+.menu .secao{margin:clamp(10px,1.8vh,18px) 2px 8px}
+.extras{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.extra{position:relative;border:1px solid var(--linha);border-radius:14px;padding:clamp(8px,1.3vh,12px) 6px;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.extra:active{transform:scale(.97)}
+.extra .ic{color:var(--champ-2);display:grid;place-items:center} .extra .ic svg{width:20px;height:20px}
+.extra b{font:600 clamp(14px,2vh,16px)/1.1 var(--serif);font-style:italic}
+.extra .cad{position:absolute;top:6px;right:7px;color:var(--proibido)} .extra .cad svg{width:12px;height:12px}
+.menu .rodape{margin-top:clamp(8px,1.4vh,14px)}
+.menu .instalar{margin-bottom:8px;padding:8px 12px} .menu .instalar img{width:34px;height:34px}
+.instalar{display:flex;align-items:center;gap:12px;border:1px solid rgba(233,185,143,.3);border-radius:16px;padding:12px 14px;margin:0 0 18px;background:rgba(233,185,143,.05)}
+.instalar img{width:42px;height:42px;border-radius:11px}
+.instalar b{display:block;font-size:14px} .instalar small{color:var(--fumaca);font-size:12.5px;line-height:1.35;display:block}
+.instalar .btn{width:auto;padding:9px 16px;font-size:18px;margin-left:auto;flex:none}
+.trancado{text-align:center;padding-top:14vh}
+.trancado p{color:var(--fumaca);max-width:320px;margin:14px auto 0}
+.rodape{text-align:center;color:rgba(185,162,168,.55);font-size:11.5px;margin-top:30px}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script src="../cartas.js"></script>
+<script>
+/* ===== Acesso ===== O acesso vem da PASTA (o caminho do link de cada compra) e se soma ao que o aparelho já guardou.
+   Fica gravado no localStorage e no Cache Storage do service worker, que atravessa o isolamento do iPhone entre o
+   Safari e o app instalado (o mesmo problema que custou caro na AppGanancia). */
+const ACESSO_PASTA = ["base"];
+const CHECKOUT = { proibido: '#', datas: '#', pro: '#' };
+const RAIZ = '../';
+const C = window.CARTAS;
+const L = {"lang": "it", "marca": "Desideri di Coppia", "marca1": "Desideri", "marca2": "di Coppia", "curto": "Desideri", "manifesto": "Giochi di coppia: obbligo o verità, ruota, dadi e match dei desideri.", "niveis": {"leve": {"nome": "Soft", "desc": "per cominciare in leggerezza"}, "romantico": {"nome": "Romantico", "desc": "coccole, baci, ricordi"}, "picante": {"nome": "Piccante", "desc": "carezze, provocazioni, camera da letto"}, "proibido": {"nome": "Senza Censura", "desc": "nessun filtro"}}, "pacotes": {"proibido": {"titulo": "Senza Censura", "texto": "Il livello senza nessun filtro, per quando volete arrivare fino in fondo.", "itens": ["Verità e obblighi senza censura", "Ruota e dadi senza censura", "Più posizioni e più zone nei dadi", "Desideri senza censura nel Match"]}, "datas": {"titulo": "Occasioni Speciali", "texto": "Carte pensate per le serate che meritano qualcosa di diverso.", "itens": ["Anniversario", "San Valentino", "Viaggio a due", "Dopo una litigata", "Serata speciale a casa"]}, "pro": {"titulo": "Desideri Pro", "texto": "Altri giochi per quando la routine torna a bussare.", "itens": ["Modalità Fantasia: scenari e ruoli da interpretare", "30 Serate a Due: un appuntamento a casa ogni sera", "Sfide a Distanza: per quando la distanza vi separa"]}}, "tipo": {"verdade": "verità", "desafio": "obbligo"}, "ocasioes": {"aniversario": "Anniversario", "namorados": "San Valentino", "viagem": "Viaggio a due", "reconciliacao": "Dopo una litigata", "em_casa": "Serata speciale a casa"}, "tiposCriar": {"verdade": "Verità", "desafio": "Obbligo", "roleta": "Ruota", "acao": "Azione del dado", "lugar": "Zona del dado"}, "voce": "Tu", "seuPar": "Partner", "cronoAria": "Avvia il timer di {t}", "cronoComecar": "Avvia", "cronoContinuar": "Riprendi", "cronoValendo": "In corso", "cronoTempo": "Stop!", "voltarAria": "Indietro", "nivelAria": "Livello {n}", "envSelo": "Una lettera solo per voi due", "envAbrirAria": "Apri la lettera", "envToque": "Tocca il sigillo per aprire", "envPe1": "Apritela insieme.", "envPe2": "Quello che c'è dentro è stato scritto per voi due.", "convite": "Stasera a chiedere è il gioco.", "campoVoce": "Tu", "phNome": "Il tuo nome", "campoPar": "Con chi giochi", "phPar": "Il suo nome", "escolhaNivel": "Scegli il livello", "comecar": "Iniziamo", "maiores": "Vietato ai minori di 18 anni.", "rodapeMarca": "Desideri di Coppia · vietato ai minori di 18 anni.", "ajustesAria": "Impostazioni", "vdNome": "Obbligo o Verità", "vdSub": "L'obbligo vale 2, la verità vale 1. Vince chi fa più punti", "roletaNome": "Ruota dei Desideri", "roletaSub": "Gira e fai quello che esce", "dadosNome": "Dadi di Coppia", "dadosSub": "Un'azione, una zona", "matchNome": "Match dei Desideri", "matchSub": "Solo i desideri in comune", "quizMenu": "Quanto mi conosci", "quizSub": "Vince chi indovina di più", "extras": "Extra", "exDatas": "Occasioni speciali", "exFantasia": "Fantasia", "exNoites": "30 Serate", "exDistancia": "A distanza", "exCriar": "Crea i tuoi", "exFavoritos": "Preferiti", "favoritarAria": "Aggiungi ai preferiti", "pular": "Passo", "cumpri": "Fatto, +{n}", "verdade": "Verità", "desafio": "Obbligo", "vale": "vale {n}", "quemGira": "Tocca a", "girar": "Gira la ruota", "trocarRoleta": "Cambia la ruota", "quemJoga": "Tocca a", "acao": "Azione", "lugar": "Zona", "jogarDados": "Lancia i dadi", "matchGrande": "Compare solo quello che desiderate in comune", "matchP": "A turno e in segreto, dite se vi andrebbe di realizzare {n} desideri adesso. Alla fine l'app mostra solo quelli in comune. Nessuno si espone.", "matchComecar": "Inizia {nome}", "semEspiar": "Niente sbirciate", "entregue": "Passa il telefono a {nome}", "matchVez2": "Ora tocca a {nome} rispondere agli stessi desideri, senza vedere le risposte dell'altra persona.", "matchVez1": "Rispondi con sincerità: si vedrà solo quello che avete in comune.", "sou": "Sono {nome}, mostra pure", "iDeT": "{i} di {t}", "naoTopo": "Non mi va", "topo": "Ci sto", "nenhum": "Nessun desiderio in comune", "nenhumP": "Stavolta non avete scelto gli stessi desideri. Giocate ancora: i desideri cambiano a ogni partita.", "jogarNovo": "Un'altra partita", "voltarMenu": "Torna al menu", "desejosVoces": "I vostri desideri", "emComum": "{n} su {t} in comune.", "toquem": "Toccate quello che farete adesso.", "escolhido": "Scelto. Ora tocca a voi.", "menu": "Menu", "empateTxt": "Oggi non perde nessuno. Ognuno sceglie un desiderio che l'altra persona dovrà realizzare.", "fimQuiz": "{v} conosce meglio l'altra persona. {p} paga pegno.", "fimVd": "{v} ha avuto più coraggio. {p} paga pegno.", "fimPartida": "Fine partita", "empate": "Pareggio", "venceu": "Vince {v}", "contra": "contro", "sortearPrenda": "Estrai la penitenza di {p}", "quizTitulo": "Quanto mi conosci", "respondePor": "{eu} risponde al posto di {par}", "dizSe": "{par} dice se è giusto.", "errou": "Sbagliato", "acertou": "Giusto", "datasTitulo": "Occasioni Speciali", "nCartas": "{n} carte", "todasViradas": "Tutte girate", "todasP": "Avete girato tutte le {t} carte di questa occasione. Che la serata continui a modo vostro.", "comecarNovo": "Ricomincia", "outraOcasiao": "Un'altra occasione", "cartaDe": "Carta {v} di {t} · tocca a", "vezDe": "Tocca a", "terminar": "Fine", "proximaCarta": "Carta successiva", "virar": "Gira la carta", "fantasiaTitulo": "Modalità Fantasia", "fantasia": "Fantasia", "cena": "scena", "combinem": "Prima decidete insieme cosa vale", "outraFantasia": "Un'altra fantasia", "sortearFantasia": "Estrai una fantasia", "noitesTitulo": "30 Serate a Due", "noitesTudo": "Avete fatto tutte e 30 le serate. Trenta appuntamenti, solo vostri.", "noitesFeitas": "{n} serate su 30 fatte. Toccate il numero successivo.", "noitesInicio": "Una serata alla volta. Toccate il numero per scoprire l'appuntamento.", "noiteFeitaAria": "Serata {n}, fatta", "noitesNovas": "Inizia 30 serate nuove", "recomecar": "Ricomincia le 30 serate", "toqueApagar": "Tocca di nuovo per cancellare i progressi", "noite": "Serata {n}", "fechar": "Chiudi", "fizemos": "Fatto", "distTitulo": "Sfide a Distanza", "distSub": "Per messaggio, vocale o videochiamata.", "deLonge": "Da lontano", "aDistancia": "A distanza", "proximoDesafio": "Prossima sfida", "criarTitulo": "Crea i tuoi", "tipoCampo": "Tipo", "nivelCampo": "Livello", "textoCampo": "Testo", "phTexto": "Scrivi {par} dove va il nome del partner", "guardar": "Aggiungi al gioco", "criados": "Creati da voi", "apagar": "Elimina", "vazioCriar": "Ancora niente. Quello che create entra nel gioco insieme alle carte dell'app.", "favoritos": "Preferiti", "tirar": "Togli", "vazioFav": "Tocca la stella su una carta per salvarla qui.", "ajustes": "Impostazioni", "salvarNomes": "Salva i nomi", "nivel": "Livello", "jogo": "Gioco", "esquentar": "Scaldarsi piano piano: il livello sale da solo ogni {n} carte", "esquentarAria": "Scaldarsi piano piano", "embaralhar": "Rimescola tutto", "trancadoP": "Apri l'app dal link che hai ricevuto per email dopo l'acquisto. È quello che sblocca il tuo accesso su questo telefono.", "resultadoAria": "Risultato", "roletaMandou": "{eu}, la ruota ha deciso", "feito": "Fatto", "esquentando": "Si scalda: ora il livello è {n}", "boasAria": "Lettera di benvenuto", "boasH2": "Solo per voi due", "boasP": "Certi desideri restano chiusi in un cassetto perché chiederli mette imbarazzo. Qui a chiedere è il gioco. A voi basta il coraggio di girare la carta.", "boasSussurro": "Quello che succede dopo resta tra voi.", "boasAntes": "Prima di iniziare", "boasLi": ["Scegliete il vostro livello. Tutto il gioco lo segue, e potete cambiarlo quando volete.", "Si gioca a turno. Non ti va? Passi, senza dare spiegazioni.", "Scrivete i vostri nomi: il gioco mette il nome dell'altra persona dentro le carte."], "boasPrivB": "Tutto resta solo su questo telefono.", "boasPriv": "Niente registrazione, niente login, niente cloud. Nessuna traccia.", "abrirJogo": "Apri il gioco", "coloquemNomes": "Scrivete entrambi i nomi", "prendaSua": "{nome}, la penitenza è tua", "escrevaTexto": "Scrivi il testo", "guardado": "Aggiunto al gioco", "nomesSalvos": "Nomi salvati", "embaralhado": "Mazzo rimescolato", "trocarNivelAria": "Cambia livello", "segueNivel": "Tutto il gioco segue il livello", "naoLiberado": "Bloccato", "liberar": "Sblocca {p}", "agoraNao": "Non ora", "instB": "Installala sul telefono", "instS": "Si apre come un'app, senza pubblicità e senza internet", "instalar": "Installa", "iosB": "Aggiungila alla schermata Home", "iosS": "Tocca Condividi e poi Aggiungi alla schermata Home", "rodada": "Turno {r} di {t}"};
+const fx = (s, o) => String(s).replace(/\{(\w+)\}/g, (m, k) => k in o ? o[k] : m);
+const NIVEIS = [
+  /* os ids ficam os antigos (conteúdo, acesso e estado salvo dependem deles); o que muda é o nome na tela */
+  { id: 'leve', ic: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3.5l1.9 5.6 5.6 1.9-5.6 1.9L11 18.5l-1.9-5.6L3.5 11l5.6-1.9z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg>', nome: L.niveis.leve.nome, cor: 'var(--leve)', desc: L.niveis.leve.desc },
+  { id: 'romantico', ic: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-8.9-8.6C1.8 8.3 3.7 5 7 5c2 0 3.6 1.1 5 2.8C13.4 6.1 15 5 17 5c3.3 0 5.2 3.3 3.9 6.4C19 15.6 12 20 12 20z"/></svg>', nome: L.niveis.romantico.nome, cor: 'var(--romantico)', desc: L.niveis.romantico.desc },
+  { id: 'picante', ic: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15.6 8.4c2.4 2.4 2 7.3-1.8 10.1-3.1 2.3-7.4 2.6-10.3 1 3.6-.9 6.3-3.6 7.4-7.2.7-2.2 2-3.6 3.3-4.1.5-.2 1-.2 1.4.2z"/><path d="M15.4 8.3c.2-2.1 1.3-3.6 3.3-4.3"/><path d="M13.4 8.9c1-1.2 3-1.6 4.2-.4"/></svg>', nome: L.niveis.picante.nome, cor: 'var(--picante)', desc: L.niveis.picante.desc },
+  { id: 'proibido', ic: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-3.9 0-6.5-2.7-6.5-6.2 0-3.4 2.4-5.4 3.6-8.3.5 1.8 1.5 2.9 2.6 3.4.2-2.8 1.6-5.3 3.8-6.9-.3 2.6.6 4.4 2 6.1 1.2 1.5 1.9 3.2 1.9 5.2 0 4-2.9 6.7-7.4 6.7z"/><path d="M12 21c-1.7 0-2.8-1.2-2.8-2.8 0-1.7 1.3-2.7 2-4 .9 1.3 3.6 2.2 3.6 4.2 0 1.5-1.2 2.6-2.8 2.6z"/></svg>', nome: L.niveis.proibido.nome, cor: 'var(--proibido)', desc: L.niveis.proibido.desc, item: 'proibido' },
+];
+const PACOTES = L.pacotes;
+
+const LS = { ler(k, p) { try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? p : v; } catch (e) { return p; } },
+             gravar(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} } };
+let ACESSO = [...new Set([...LS.ler('dc_acesso', []), ...ACESSO_PASTA])];
+LS.gravar('dc_acesso', ACESSO);
+const tem = x => ACESSO.includes(x);
+
+/* ===== Estado ===== */
+const E = Object.assign({ nomes: ['', ''], nivel: 'leve', esquentar: false, vez: 0, usados: {}, favoritos: [], meus: [], noitesFeitas: [], contador: 0 },
+  LS.ler('dc_estado', {}));
+/* o nível Ousado entrou no Picante: estado salvo antes disso migra sozinho */
+if (E.nivel === 'ousado') E.nivel = 'picante';
+E.meus.forEach(m => { if (m.nivel === 'ousado') m.nivel = 'picante'; });
+const salvar = () => LS.gravar('dc_estado', E);
+/* a carta abre toda vez que o app abre: quem comprou costuma espiar sozinho antes, e a primeira impressão tem que ficar para o casal */
+let T = { tela: 'envelope' };
+
+/* ===== utilidades ===== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const eu = () => E.nomes[E.vez] || L.voce;
+const par = () => E.nomes[1 - E.vez] || L.seuPar;
+const troca = t => esc(t).replace(/\{par\}/g, '<b>' + esc(par()) + '</b>');
+const nivelObj = id => NIVEIS.find(n => n.id === id);
+const liberado = id => { const n = nivelObj(id); return !n.item || tem(n.item); };
+const embaralha = a => { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; };
+function aviso(t) { const a = document.createElement('div'); a.className = 'aviso'; a.textContent = t; document.body.appendChild(a); setTimeout(() => a.remove(), 2400); }
+function vibra(p) { try { navigator.vibrate && navigator.vibrate(p); } catch (e) {} }
+function toque() {
+  try { const ac = new (window.AudioContext || window.webkitAudioContext)(); [0, .18, .36].forEach(d => { const o = ac.createOscillator(), g = ac.createGain();
+    o.type = 'sine'; o.frequency.value = 880; g.gain.setValueAtTime(.0001, ac.currentTime + d); g.gain.exponentialRampToValueAtTime(.2, ac.currentTime + d + .02);
+    g.gain.exponentialRampToValueAtTime(.0001, ac.currentTime + d + .16); o.connect(g).connect(ac.destination); o.start(ac.currentTime + d); o.stop(ac.currentTime + d + .18); }); } catch (e) {}
+}
+/* baralho que não repete: guarda os índices já usados por chave e só recomeça quando acaba */
+function tira(chave, lista) {
+  if (!lista.length) return null;
+  let u = E.usados[chave] || [];
+  if (u.length >= lista.length) u = [];
+  const livres = lista.map((_, i) => i).filter(i => !u.includes(i));
+  const i = livres[Math.floor(Math.random() * livres.length)];
+  u.push(i); E.usados[chave] = u; salvar();
+  return lista[i];
+}
+function proximaVez() { E.vez = 1 - E.vez; salvar(); }
+
+/* ===== ícones (traço fino, sem emoji) ===== */
+const I = {
+  voltar: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg>',
+  cartas: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="7" y="3" width="12" height="17" rx="2.5" transform="rotate(10 13 11)"/><rect x="4" y="4" width="12" height="17" rx="2.5" transform="rotate(-8 10 12)"/></svg>',
+  roleta: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="13" r="8"/><path d="M12 5v16M4 13h16M6.3 7.3l11.4 11.4M17.7 7.3L6.3 18.7"/><path d="M10 2.5h4L12 5z" fill="currentColor"/></svg>',
+  dados: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="11" height="11" rx="2.5"/><rect x="11" y="3" width="10" height="10" rx="2.5" transform="rotate(15 16 8)"/><circle cx="6.5" cy="10.5" r=".9" fill="currentColor"/><circle cx="10.5" cy="14.5" r=".9" fill="currentColor"/></svg>',
+  match: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/><path d="M12 7.2a6 6 0 0 1 0 9.6a6 6 0 0 1 0-9.6z" fill="currentColor" stroke="none" opacity=".55"/></svg>',
+  quiz: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M10 9.2a2 2 0 1 1 2.6 1.9c-.4.2-.6.5-.6.9v.4M12 14.4v.1"/></svg>',
+  datas: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M12 13.5l1 2 2.2.3-1.6 1.5.4 2.2-2-1-2 1 .4-2.2-1.6-1.5 2.2-.3z" fill="currentColor" stroke="none"/></svg>',
+  fantasia: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M3 9c3-2 6-2 9 0 3-2 6-2 9 0-.5 4-3 6-5.5 6-1.5 0-2.5-1-3.5-2-1 1-2 2-3.5 2C5.9 15 3.5 13 3 9z"/><circle cx="8" cy="10.5" r="1.2" fill="currentColor"/><circle cx="16" cy="10.5" r="1.2" fill="currentColor"/></svg>',
+  noites: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 15.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 9.5 11.5z"/><path d="M17 4l.6 1.4L19 6l-1.4.6L17 8l-.6-1.4L15 6l1.4-.6z" fill="currentColor" stroke="none"/></svg>',
+  distancia: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="6" width="7" height="12" rx="1.8"/><rect x="14.5" y="6" width="7" height="12" rx="1.8"/><path d="M10.5 12h3" stroke-dasharray="1.2 1.6"/></svg>',
+  criar: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 6l3 3"/></svg>',
+  estrela: f => `<svg width="20" height="20" viewBox="0 0 24 24" fill="${f ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="1.6"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>`,
+  cadeado: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
+  ajuste: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>',
+  seta: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg>',
+  coroa: '<svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M3.5 8.5l4.2 3.6L12 5l4.3 7.1 4.2-3.6-1.8 9.5H5.3z"/><path d="M5.5 21h13"/></svg>',
+  trocar: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.3-4.6L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14.3 4.6L20 16"/><path d="M20 20v-4h-4"/></svg>',
+  check: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+};
+
+/* ===== cronômetro ===== */
+let cronoIntervalo = null;
+const ICR = {
+  play: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M8 5.2v13.6L18.6 12z"/></svg>',
+  pausa: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 5h3.6v14H7zM13.4 5H17v14h-3.6z"/></svg>',
+  denovo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 4.5v4h4"/></svg>',
+};
+function cronoHTML(seg, id) {
+  return `<button class="crono" data-acao="crono" data-seg="${seg}" id="${id || 'crono'}" aria-label="${fx(L.cronoAria, { t: fmt(seg) })}">
+    <span class="cr-ic">${ICR.play}</span><span class="cr-txt">${L.cronoComecar}</span><span class="cr-t">${fmt(seg)}</span><i class="cr-barra"></i></button>`;
+}
+const fmt = s => Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+function iniciaCrono(el) {
+  const total = +el.dataset.seg, estado = el.dataset.estado || 'pronto';
+  const ic = el.querySelector('.cr-ic'), txt = el.querySelector('.cr-txt'), t = el.querySelector('.cr-t'), barra = el.querySelector('.cr-barra');
+  clearInterval(cronoIntervalo);
+  if (estado === 'correndo') { el.dataset.estado = 'pausado'; ic.innerHTML = ICR.play; txt.textContent = L.cronoContinuar; return; }
+  let resta = estado === 'pausado' ? +el.dataset.resta : total;
+  el.dataset.estado = 'correndo'; el.classList.remove('fim'); ic.innerHTML = ICR.pausa; txt.textContent = L.cronoValendo; vibra(15);
+  const mostra = () => { t.textContent = fmt(Math.max(resta, 0)); barra.style.transform = `scaleX(${Math.max(resta, 0) / total})`; el.dataset.resta = resta; };
+  mostra();
+  cronoIntervalo = setInterval(() => {
+    resta--; mostra();
+    if (resta <= 0) {
+      clearInterval(cronoIntervalo); el.dataset.estado = 'fim'; el.classList.add('fim');
+      ic.innerHTML = ICR.denovo; txt.textContent = L.cronoTempo; t.textContent = ''; barra.style.transform = 'scaleX(1)'; vibra([200, 100, 200]); toque();
+    }
+  }, 1000);
+}
+
+/* ===== telas ===== */
+function barra(titulo, acao) {
+  const n = nivelObj(E.nivel);   /* nos jogos o nível só aparece; quem troca é o menu ou os ajustes */
+  return `<div class="barra"><button class="voltar" data-acao="ir" data-tela="menu" aria-label="${L.voltarAria}">${I.voltar}</button><h1>${titulo}</h1>${acao || `<span class="acao nivel-ind" role="img" style="color:${n.cor}" aria-label="${fx(L.nivelAria, { n: n.nome })}">${n.ic}</span>`}</div>`;
+}
+function seletorNiveis(comProibido = true) {
+  return `<div class="niveis">${NIVEIS.filter(n => comProibido || n.id !== 'proibido').map(n => `<button class="nv ${E.nivel === n.id ? 'on' : ''}" data-acao="nivel" data-nivel="${n.id}">
+    <span class="ni" style="color:${n.cor}">${n.ic}</span>${n.nome}${liberado(n.id) ? '' : I.cadeado}</button>`).join('')}</div>`;
+}
+
+const TELAS = {
+  envelope() {
+    return `<div class="tela envelope-tela">
+      <h1 class="env-topo"><div class="d">${L.marca1}</div><div class="c">${L.marca2}</div></h1>
+      <div class="env-meio"><span class="selo">${L.envSelo}</span>
+        <div class="env" id="env"><div class="corpo"></div><div class="papel"></div><div class="bolso"></div><div class="aba"></div>
+          <button class="cera" data-acao="abrirEnvelope" aria-label="${L.envAbrirAria}"><img src="${RAIZ}img/marca/labios.webp" alt=""></button></div>
+        <div class="toque">${L.envToque}</div></div>
+      <p class="env-pe">${L.envPe1}<span>${L.envPe2}</span></p></div>`;
+  },
+
+  abertura() {
+    return `<div class="tela abertura">
+      <img class="labios" src="${RAIZ}img/marca/labios.webp" alt="" width="900" height="575">
+      <h1 class="marca"><div class="d">${L.marca1}</div><div class="c">${L.marca2}</div></h1>
+      <p class="convite">${L.convite}</p>
+      <div class="duplo"><label class="campo"><span>${L.campoVoce}</span><input id="n0" maxlength="16" value="${esc(E.nomes[0])}" placeholder="${L.phNome}" autocomplete="off"></label>
+      <label class="campo"><span>${L.campoPar}</span><input id="n1" maxlength="16" value="${esc(E.nomes[1])}" placeholder="${L.phPar}" autocomplete="off"></label></div>
+      <span class="campo"><span>${L.escolhaNivel}</span></span>${seletorNiveis(false)}
+      <button class="btn p" data-acao="comecar">${L.comecar}</button>
+      <p class="rodape">${L.maiores}</p></div>`;
+  },
+
+  menu() {
+    const nome0 = esc(E.nomes[0]), nome1 = esc(E.nomes[1]);
+    return `<div class="tela menu">
+      <div class="barra"><img src="${RAIZ}img/marca/labios.webp" alt="" style="width:46px;height:auto"><h1 class="selo${L.marca.length > 16 ? ' longo' : ''}" style="flex:1;text-align:center">${L.marca}</h1>
+        <button class="acao" data-acao="ir" data-tela="ajustes" aria-label="${L.ajustesAria}">${I.ajuste}</button></div>
+      ${blocoInstalar()}
+      <div class="ola"><div><h2>${nome0} <span class="e">&amp;</span> ${nome1}</h2></div>${chipNivel()}</div>
+      <div class="modos">
+        <button class="modo grande" data-acao="ir" data-tela="vd"><span class="ic">${I.cartas}</span><span><b>${L.vdNome}</b><small>${L.vdSub}</small></span></button>
+        <button class="modo" data-acao="ir" data-tela="roleta"><span class="ic">${I.roleta}</span><span><b>${L.roletaNome}</b><small>${L.roletaSub}</small></span></button>
+        <button class="modo" data-acao="ir" data-tela="dados"><span class="ic">${I.dados}</span><span><b>${L.dadosNome}</b><small>${L.dadosSub}</small></span></button>
+        <button class="modo" data-acao="ir" data-tela="matchIntro"><span class="ic">${I.match}</span><span><b>${L.matchNome}</b><small>${L.matchSub}</small></span></button>
+        <button class="modo" data-acao="ir" data-tela="quiz"><span class="ic">${I.quiz}</span><span><b>${L.quizMenu}</b><small>${L.quizSub}</small></span></button>
+      </div>
+      <div class="secao">${L.extras}</div>
+      <div class="extras">
+        ${itemExtra('datas', I.datas, L.exDatas, 'datas')}
+        ${itemExtra('fantasia', I.fantasia, L.exFantasia, 'pro')}
+        ${itemExtra('noites', I.noites, L.exNoites, 'pro')}
+        ${itemExtra('distancia', I.distancia, L.exDistancia, 'pro')}
+        ${itemExtra('criar', I.criar, L.exCriar)}
+        ${itemExtra('favoritos', I.estrela(false), L.exFavoritos)}
+      </div>
+      <p class="rodape">${L.maiores}</p></div>`;
+  },
+
+  vd() {
+    const n = nivelObj(E.nivel), escura = E.nivel === 'proibido';
+    const c = T.carta;
+    return `<div class="tela">${barra(L.vdNome)}
+      ${vezPlacar(partida('pvd'), RODADAS.vd)}
+      <div class="palco"><div class="carta" ${c ? 'data-virar' : ''} id="carta">
+        <div class="face verso"><img src="${RAIZ}img/marca/labios.webp" alt=""><div class="nome">${L.marca1}</div></div>
+        <div class="face frente ${escura ? 'escura' : ''}">${c ? `
+          <div class="cab"><span><span class="ni" style="color:${n.cor}">${n.ic}</span>${n.nome}</span><span class="tipo">${L.tipo[c.tipo] || c.tipo}</span></div>
+          <div class="txt">${troca(c.t)}</div>
+          <div class="rod">${c.seg ? cronoHTML(c.seg) : `<span>${esc(eu())}</span>`}
+            <button data-acao="favoritar" aria-label="${L.favoritarAria}" class="estrela ${ehFavorito(c.t) ? '' : 'vazia'}">${I.estrela(ehFavorito(c.t))}</button></div>` : ''}</div>
+      </div></div>
+      ${c ? `<div class="linha-btn"><button class="btn s" data-acao="vdPular">${L.pular}</button><button class="btn p" data-acao="vdCumpri">${fx(L.cumpri, { n: c.tipo === 'desafio' ? 2 : 1 })}</button></div>`
+          : `<div class="escolha"><button class="btn s" data-acao="vd" data-tipo="verdade">${L.verdade}<small>${fx(L.vale, { n: 1 })}</small></button><button class="btn p" data-acao="vd" data-tipo="desafio">${L.desafio}<small>${fx(L.vale, { n: 2 })}</small></button></div>`}
+    </div>`;
+  },
+
+  roleta() {
+    return `<div class="tela">${barra(L.roletaNome)}
+      <div class="vez"><span>${L.quemGira}</span><b>${esc(eu())}</b></div>
+      <div class="roleta-box">${svgRoleta()}
+        <svg class="ponteiro" viewBox="0 0 34 44"><defs><linearGradient id="pt" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4d6bc"/><stop offset="1" stop-color="#9c6b45"/></linearGradient></defs><path d="M17 42 L3 10 A14 14 0 1 1 31 10 Z" fill="url(#pt)" stroke="#14060b" stroke-width="2"/><circle cx="17" cy="14" r="5" fill="#b0123e"/></svg>
+      </div>
+      <button class="btn p" data-acao="girar" ${T.girando ? 'disabled' : ''}>${L.girar}</button>
+      <button class="btn f trocar" data-acao="trocarRoleta" ${T.girando ? 'disabled' : ''}>${I.trocar} ${L.trocarRoleta}</button></div>`;
+  },
+
+  dados() {
+    const r = T.dados || {};
+    return `<div class="tela">${barra(L.dadosNome)}
+      <div class="vez"><span>${L.quemJoga}</span><b>${esc(eu())}</b></div>
+      <div class="mesa">${dadoHTML('a', r.acao || L.acao)}${dadoHTML('b', r.lugar || L.lugar, 'b')}</div>
+      <div class="frase-dado" id="frase">${r.acao && !T.rolando ? esc(r.acao + ' ' + r.lugar) : '&nbsp;'}</div>
+      <div class="tempos">${[30, 60, 90].map(s => `<button class="${(E.tempoDado || 30) === s ? 'on' : ''}" data-acao="tempoDado" data-seg="${s}">${s} s</button>`).join('')}</div>
+      ${r.acao && !T.rolando ? `<div class="centro-crono">${cronoHTML(E.tempoDado || 30)}</div>` : ''}
+      <div class="linha-btn"><button class="btn p" data-acao="rolar" ${T.rolando ? 'disabled' : ''}>${L.jogarDados}</button></div></div>`;
+  },
+
+  matchIntro() {
+    return `<div class="tela">${barra(L.matchNome)}
+      <div class="passa" style="padding-top:2vh"><div style="color:var(--champ)">${I.match.replace('width="22" height="22"', 'width="64" height="64"')}</div>
+      <div class="grande">${L.matchGrande}</div>
+      <p>${fx(L.matchP, { n: MATCH_QTD })}</p>
+      <button class="btn p" data-acao="matchComeca">${fx(L.matchComecar, { nome: esc(E.nomes[0]) })}</button></div></div>`;
+  },
+
+  matchPassa() {
+    const quem = E.nomes[T.match.jogador];
+    return `<div class="tela passa"><span class="selo">${L.semEspiar}</span><div class="grande">${fx(L.entregue, { nome: esc(quem) })}</div>
+      <p>${T.match.jogador === 1 ? fx(L.matchVez2, { nome: esc(quem) }) : L.matchVez1}</p>
+      <button class="btn p" data-acao="matchPronto">${fx(L.sou, { nome: esc(quem) })}</button></div>`;
+  },
+
+  matchPergunta() {
+    const m = T.match, d = m.lista[m.i], tot = m.lista.length;
+    return `<div class="tela">${barra(L.matchNome)}
+      <div class="progresso"><i style="width:${(m.i / tot) * 100}%"></i></div>
+      <div class="desejo"><span class="selo">${esc(E.nomes[m.jogador])} · ${fx(L.iDeT, { i: m.i + 1, t: tot })}</span><div class="t">${esc(d.t)}</div></div>
+      <div class="escolha"><button class="btn s" data-acao="matchResp" data-v="0">${L.naoTopo}</button><button class="btn p" data-acao="matchResp" data-v="1">${L.topo}</button></div></div>`;
+  },
+
+  matchFim() {
+    const m = T.match, res = m.lista.filter((_, i) => m.resp[0][i] && m.resp[1][i]);
+    if (!res.length) return `<div class="tela fim-partida"><div class="coroa">${I.match.replace('width="22" height="22"', 'width="58" height="58"')}</div><h2>${L.nenhum}</h2>
+      <p>${L.nenhumP}</p>
+      <div class="acoes"><button class="btn p" data-acao="matchComeca">${L.jogarNovo}</button><button class="btn f" data-acao="ir" data-tela="menu">${L.voltarMenu}</button></div></div>`;
+    return `<div class="tela">${barra(L.desejosVoces)}
+      <p class="sub" style="text-align:center">${fx(L.emComum, { n: res.length, t: m.lista.length })} ${m.escolhido == null ? L.toquem : L.escolhido}</p>
+      <div class="match-res">${res.map((d, i) => `<button class="m ${m.escolhido === i ? 'on' : ''}" data-acao="escolheDesejo" data-i="${i}" style="animation-delay:${i * 120}ms">${esc(d.t)}</button>`).join('')}</div>
+      <div class="linha-btn"><button class="btn s" data-acao="ir" data-tela="menu">${L.menu}</button><button class="btn p" data-acao="matchComeca">${L.jogarNovo}</button></div></div>`;
+  },
+
+  fim() {
+    const jogo = T.jogo, p = partida(jogo === 'vd' ? 'pvd' : 'pquiz'), [a, b] = p.pts, vence = a === b ? -1 : (a > b ? 0 : 1);
+    const nv = vence >= 0 ? esc(E.nomes[vence]) : '', np = vence >= 0 ? esc(E.nomes[1 - vence]) : '';
+    const txt = vence < 0 ? L.empateTxt : fx(jogo === 'quiz' ? L.fimQuiz : L.fimVd, { v: nv, p: np });
+    return `<div class="tela fim-partida"><div class="coroa">${I.coroa}</div><span class="selo">${L.fimPartida}</span><h2>${vence < 0 ? L.empate : fx(L.venceu, { v: nv })}</h2>
+      <div class="placar"><div><b>${a}</b><small>${esc(E.nomes[0])}</small></div><span class="x">${L.contra}</span><div><b>${b}</b><small>${esc(E.nomes[1])}</small></div></div>
+      <p>${txt}</p>
+      <div class="acoes">${vence >= 0 ? `<button class="btn p" data-acao="prenda" data-quem="${1 - vence}">${fx(L.sortearPrenda, { p: np })}</button>` : ''}
+        <button class="btn s" data-acao="novaPartida">${L.jogarNovo}</button><button class="btn f" data-acao="ir" data-tela="menu">${L.voltarMenu}</button></div></div>`;
+  },
+
+  quiz() {
+    const q = T.quiz;
+    return `<div class="tela">${barra(L.quizTitulo)}
+      ${vezPlacar(partida('pquiz'), RODADAS.quiz)}
+      <div class="desejo" style="min-height:240px"><span class="selo">${fx(L.respondePor, { eu: esc(eu()), par: esc(par()) })}</span><div class="t">${q ? troca(q.p) : ''}</div></div>
+      <p class="sub" style="text-align:center;margin:-4px 0 14px">${fx(L.dizSe, { par: esc(par()) })}</p>
+      <div class="escolha"><button class="btn s" data-acao="quizResp" data-v="0">${L.errou}</button><button class="btn p" data-acao="quizResp" data-v="1">${L.acertou}</button></div></div>`;
+  },
+
+  datas() {
+    const ocas = Object.entries(L.ocasioes);
+    if (!T.ocasiao) return `<div class="tela">${barra(L.datasTitulo)}<div class="lista">${ocas.map(([k, n]) => `<button class="item" data-acao="ocasiao" data-k="${k}"><span class="ic">${I.datas}</span><span><b>${n}</b><small>${fx(L.nCartas, { n: C.datas[k].length })}</small></span><span class="fim">${I.seta}</span></button>`).join('')}</div></div>`;
+    const c = T.carta, nome = ocas.find(o => o[0] === T.ocasiao)[1], tot = C.datas[T.ocasiao].length, vistas = (E.usados['datas:' + T.ocasiao] || []).length;
+    if (T.datasFim) return `<div class="tela fim-partida"><div class="coroa">${I.datas.replace(/width="22" height="22"/, 'width="58" height="58"')}</div><span class="selo">${nome}</span><h2>${L.todasViradas}</h2>
+      <p>${fx(L.todasP, { t: tot })}</p>
+      <div class="acoes"><button class="btn p" data-acao="datasDeNovo">${L.comecarNovo}</button><button class="btn s" data-acao="ocasiao" data-k="">${L.outraOcasiao}</button></div></div>`;
+    return `<div class="tela">${barra(nome)}<div class="vez"><span>${c ? fx(L.cartaDe, { v: vistas, t: tot }) : L.vezDe}</span><b>${esc(eu())}</b></div>
+      <div class="palco"><div class="carta" ${c ? 'data-virar' : ''}><div class="face verso"><img src="${RAIZ}img/marca/labios.webp" alt=""><div class="nome">${nome}</div></div>
+        <div class="face frente">${c ? `<div class="cab"><span><i style="background:var(--champ)"></i>${nome}</span><span class="tipo">${L.tipo[c.tipo] || c.tipo}</span></div><div class="txt">${troca(c.t)}</div>
+        <div class="rod"><span>${esc(eu())}</span><button data-acao="favoritar" class="estrela ${ehFavorito(c.t) ? '' : 'vazia'}">${I.estrela(ehFavorito(c.t))}</button></div>` : ''}</div></div></div>
+      <div class="linha-btn"><button class="btn p" data-acao="cartaData">${c ? (vistas >= tot ? L.terminar : L.proximaCarta) : L.virar}</button></div></div>`;
+  },
+
+  fantasia() {
+    const f = T.fantasia;
+    return `<div class="tela">${barra(L.fantasiaTitulo)}
+      <div class="palco"><div class="carta" ${f ? 'data-virar' : ''}><div class="face verso"><img src="${RAIZ}img/marca/labios.webp" alt=""><div class="nome">${L.fantasia}</div></div>
+      <div class="face frente escura">${f ? `<div class="cab"><span><i style="background:var(--proibido)"></i>${L.fantasia}</span><span class="tipo">${L.cena}</span></div>
+        <div class="txt" style="font-size:clamp(20px,5.6vw,25px)">${esc(f.titulo)}<small>${troca(f.cena)}</small>
+        <small><b style="color:var(--champ)">${esc(eu())}:</b> ${troca(f.papel_voce)}</small><small><b style="color:var(--champ)">${esc(par())}:</b> ${troca(f.papel_par)}</small></div>
+        <div class="rod"><span>${L.combinem}</span></div>` : ''}</div></div></div>
+      <button class="btn p" data-acao="fantasia">${f ? L.outraFantasia : L.sortearFantasia}</button></div>`;
+  },
+
+  noites() {
+    const ciclo = cicloAtual(), feitas = E.noitesFeitas.length, tudo = feitas >= ciclo.length;
+    return `<div class="tela">${barra(L.noitesTitulo)}<p class="sub" style="text-align:center;margin-bottom:18px">${tudo ? L.noitesTudo : feitas ? fx(L.noitesFeitas, { n: feitas }) : L.noitesInicio}</p>
+      <div class="noites">${ciclo.map((_, i) => E.noitesFeitas.includes(i)
+        ? `<button class="noite feita" data-acao="noite" data-i="${i}" aria-label="${fx(L.noiteFeitaAria, { n: i + 1 })}"><small>${i + 1}</small>${CORACAO}</button>`
+        : `<button class="noite" data-acao="noite" data-i="${i}">${i + 1}</button>`).join('')}</div>
+      <button class="btn f" data-acao="noitesDeNovo" style="margin-top:14px">${tudo ? L.noitesNovas : L.recomecar}</button></div>`;
+  },
+
+  distancia() {
+    const c = T.carta;
+    return `<div class="tela">${barra(L.distTitulo)}<p class="sub" style="text-align:center;margin-bottom:6px">${L.distSub}</p>
+      <div class="palco"><div class="carta" ${c ? 'data-virar' : ''}><div class="face verso"><img src="${RAIZ}img/marca/labios.webp" alt=""><div class="nome">${L.deLonge}</div></div>
+      <div class="face frente">${c ? `<div class="cab"><span><i style="background:var(--romantico)"></i>${L.aDistancia}</span><span class="tipo">${L.tipo.desafio}</span></div><div class="txt">${troca(c.t)}</div><div class="rod"><span>${esc(eu())}</span></div>` : ''}</div></div></div>
+      <button class="btn p" data-acao="distancia">${c ? L.proximoDesafio : L.virar}</button></div>`;
+  },
+
+  criar() {
+    const tipos = Object.entries(L.tiposCriar);
+    return `<div class="tela">${barra(L.criarTitulo)}
+      <label class="campo"><span>${L.tipoCampo}</span><select id="cTipo">${tipos.map(([k, n]) => `<option value="${k}">${n}</option>`).join('')}</select></label>
+      <label class="campo"><span>${L.nivelCampo}</span><select id="cNivel">${NIVEIS.filter(n => liberado(n.id)).map(n => `<option value="${n.id}" ${n.id === E.nivel ? 'selected' : ''}>${n.nome}</option>`).join('')}</select></label>
+      <label class="campo"><span>${L.textoCampo}</span><textarea id="cTexto" maxlength="140" placeholder="${L.phTexto}"></textarea></label>
+      <button class="btn p" data-acao="salvarMeu">${L.guardar}</button>
+      <div class="secao">${L.criados}</div>
+      <div class="lista">${E.meus.length ? E.meus.map((m, i) => `<div class="item"><span><b style="font-size:17px">${esc(m.t)}</b><small>${tipos.find(t => t[0] === m.tipo)[1]} · ${nivelObj(m.nivel).nome}</small></span><button class="fim" data-acao="apagarMeu" data-i="${i}" aria-label="${L.apagar}">${L.apagar}</button></div>`).join('') : `<div class="vazio">${L.vazioCriar}</div>`}</div></div>`;
+  },
+
+  favoritos() {
+    return `<div class="tela">${barra(L.favoritos)}<div class="lista">${E.favoritos.length ? E.favoritos.map((f, i) => `<div class="item"><span><b style="font-size:17px">${troca(f.t)}</b><small>${f.onde}</small></span><button class="fim" data-acao="desfavoritar" data-i="${i}">${L.tirar}</button></div>`).join('')
+      : `<div class="vazio">${L.vazioFav}</div>`}</div></div>`;
+  },
+
+  ajustes() {
+    return `<div class="tela">${barra(L.ajustes)}
+      <div class="duplo"><label class="campo"><span>${L.campoVoce}</span><input id="n0" maxlength="16" value="${esc(E.nomes[0])}"></label><label class="campo"><span>${L.campoPar}</span><input id="n1" maxlength="16" value="${esc(E.nomes[1])}"></label></div>
+      <button class="btn p" data-acao="salvarNomes">${L.salvarNomes}</button>
+      <div class="secao">${L.nivel}</div>${seletorNiveis()}
+      <div class="secao">${L.jogo}</div>
+      <div class="esquentar"><span>${fx(L.esquentar, { n: PASSO })}</span><button class="chave ${E.esquentar ? 'on' : ''}" data-acao="esquentar" aria-label="${L.esquentarAria}"></button></div>
+      <button class="btn s" data-acao="zerarUsados">${L.embaralhar}</button>
+      <p class="rodape">${L.rodapeMarca}</p></div>`;
+  },
+
+  trancado() {
+    return `<div class="tela trancado"><img src="${RAIZ}img/marca/labios.webp" alt="" style="width:62%"><h1 class="marca"><div class="d">${L.marca1}</div><div class="c">${L.marca2}</div></h1>
+      <p>${L.trancadoP}</p></div>`;
+  },
+};
+
+function itemExtra(tela, ic, titulo, item) {
+  const ok = !item || tem(item);
+  return `<button class="extra" data-acao="${ok ? 'ir' : 'bloqueado'}" data-tela="${tela}"${item ? ` data-item="${item}"` : ''}><span class="ic">${ic}</span><b>${titulo}</b>${ok ? '' : `<span class="cad">${I.cadeado}</span>`}</button>`;
+}
+function ehFavorito(t) { return E.favoritos.some(f => f.t === t); }
+
+/* ===== 30 noites: cada ciclo sorteia 30 de 100 encontros, 10 leves, 10 de meio e 10 quentes, nessa ordem ===== */
+function novoCiclo(vistas = []) {
+  return [1, 2, 3].flatMap(f => {
+    const fase = C.noites.map((n, i) => n.fase === f ? i : -1).filter(i => i >= 0);
+    return [...embaralha(fase.filter(i => !vistas.includes(i))), ...embaralha(fase.filter(i => vistas.includes(i)))].slice(0, 10);
+  });
+}
+/* o primeiro ciclo é o das 30 noites originais, na ordem em que foram escritas */
+function cicloAtual() { if (!E.noitesCiclo) { E.noitesCiclo = C.noites.slice(0, 30).map((_, i) => i); salvar(); } return E.noitesCiclo; }
+
+/* ===== partida: Verdade ou Desafio e Quanto você me conhece têm começo, placar e fim ===== */
+const RODADAS = { vd: 10, quiz: 6 };   /* rodadas por pessoa */
+const MATCH_QTD = 10;
+function partida(chave) { return E[chave] || (E[chave] = { jogadas: 0, pts: [0, 0] }); }
+function vezPlacar(p, total) {
+  const r = Math.min(Math.floor(p.jogadas / 2) + 1, total);
+  return `<div class="vez partida"><div class="pt ${E.vez === 0 ? 'ativo' : ''}">${p.pts[0]}<small>${esc(E.nomes[0])}</small></div>
+    <div><span>${fx(L.rodada, { r, t: total })}</span><b>${esc(eu())}</b></div><div class="pt ${E.vez === 1 ? 'ativo' : ''}">${p.pts[1]}<small>${esc(E.nomes[1])}</small></div></div>`;
+}
+function fimDaVez(jogo) {
+  const p = partida(jogo === 'vd' ? 'pvd' : 'pquiz');
+  clearInterval(cronoIntervalo); p.jogadas++; proximaVez(); salvar();
+  if (p.jogadas >= RODADAS[jogo] * 2) { T = { tela: 'fim', jogo }; render(); return true; }
+  return false;
+}
+function festa() {
+  let caixa = document.querySelector('.coracoes');
+  if (!caixa) { caixa = document.createElement('div'); caixa.className = 'coracoes'; document.body.appendChild(caixa); }
+  for (let i = 0; i < 30; i++) soltaCoracao(caixa, { x: innerWidth * (.1 + Math.random() * .8), y: innerHeight + 10, sobe: [innerHeight * .6, innerHeight * 1.05], abre: 90, tam: [10, 24], dur: [3, 5.5], op: [.55, .9], atraso: Math.random() * 1.2 });
+}
+
+/* ===== corações do envelope ===== */
+const CORACAO = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.1 0 3.9 1.2 5.3 3 1.4-1.8 3.2-3 5.3-3 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"/></svg>';
+const CORES_CORACAO = ['#b0123e', '#ff4d5e', '#e0234e', '#e9b98f', '#e58ba0'];
+let coracoesIntervalo;
+function soltaCoracao(caixa, { x, y, sobe, abre, tam, dur, op, atraso = 0 }) {
+  const r = (a, b) => a + Math.random() * (b - a), h = document.createElement('i');
+  h.className = 'coracao'; h.innerHTML = CORACAO;
+  h.style.cssText = `left:${x}px;top:${y}px;--t:${r(...tam)}px;--c:${CORES_CORACAO[Math.floor(Math.random() * CORES_CORACAO.length)]};--d:${r(...dur)}s;--a:${atraso}s;--o:${r(...op)};--x:${r(-abre, abre)}px;--y:${-r(...sobe)}px;--r0:${r(-30, 30)}deg;--r1:${r(-40, 40)}deg`;
+  caixa.appendChild(h); setTimeout(() => h.remove(), (dur[1] + atraso) * 1000 + 200);
+}
+function iniciaCoracoes() {
+  if (document.querySelector('.coracoes')) return;
+  const caixa = document.createElement('div'); caixa.className = 'coracoes'; document.body.appendChild(caixa);
+  const um = () => soltaCoracao(caixa, { x: Math.random() * innerWidth, y: innerHeight + 20, sobe: [innerHeight * .7, innerHeight * 1.1], abre: 60, tam: [8, 18], dur: [7, 11], op: [.25, .55] });
+  for (let i = 0; i < 6; i++) setTimeout(um, i * 500);
+  coracoesIntervalo = setInterval(um, 900);
+}
+function explodeCoracoes() {
+  const caixa = document.querySelector('.coracoes'), env = $('#env'); if (!caixa || !env) return;
+  const b = env.getBoundingClientRect();
+  for (let i = 0; i < 34; i++) soltaCoracao(caixa, { x: b.left + b.width * (.15 + Math.random() * .7), y: b.top + b.height * .45, sobe: [innerHeight * .35, innerHeight * .8], abre: 140, tam: [10, 26], dur: [2.4, 4.2], op: [.6, .95], atraso: Math.random() * .6 });
+}
+function paraCoracoes() { clearInterval(coracoesIntervalo); document.querySelector('.coracoes')?.remove(); }
+
+/* ===== roleta ===== */
+/* a roleta mostra 12 de um banco grande do nível; "Trocar a roleta" sorteia outras 12 que ainda não saíram */
+function itensRoleta() {
+  if (T.roletaSet && T.roletaSet.nivel === E.nivel) return T.roletaSet.itens;
+  const base = C.roleta[E.nivel] || [], chave = 'roleta:' + E.nivel;
+  const meus = embaralha(E.meus.filter(m => m.tipo === 'roleta' && m.nivel === E.nivel).map(m => ({ t: m.t }))).slice(0, 4);
+  let u = E.usados[chave] || [];
+  if (base.length - u.length < 12 - meus.length) u = [];
+  const escolhidos = embaralha(base.map((_, i) => i).filter(i => !u.includes(i))).slice(0, 12 - meus.length);
+  E.usados[chave] = [...u, ...escolhidos]; salvar();
+  T.roletaSet = { nivel: E.nivel, itens: embaralha([...meus, ...escolhidos.map(i => base[i])]) };
+  return T.roletaSet.itens;
+}
+function svgRoleta() {
+  const it = itensRoleta(), n = it.length, R = 160, ns = [];
+  for (let i = 0; i < n; i++) {
+    const a0 = (i / n) * Math.PI * 2 - Math.PI / 2, a1 = ((i + 1) / n) * Math.PI * 2 - Math.PI / 2, am = (a0 + a1) / 2;
+    const p = `M0 0 L ${R * Math.cos(a0)} ${R * Math.sin(a0)} A ${R} ${R} 0 0 1 ${R * Math.cos(a1)} ${R * Math.sin(a1)} Z`;
+    const cor = E.nivel === 'proibido' ? (i % 2 ? '#1a0a07' : '#3a2412') : (i % 2 ? '#3d0b1a' : '#9a1036');
+    /* texto alinhado à borda, em até duas linhas, para não invadir o miolo */
+    const t = it[i].t, meio = t.length > 17 ? t.lastIndexOf(' ', Math.ceil(t.length / 2) + 3) : -1;
+    const linhas = meio > 0 ? [t.slice(0, meio), t.slice(meio + 1)] : [t];
+    const f = Math.max(...linhas.map(l => l.length)) > 15 ? 9.4 : 10.6;
+    const graus = ((am * 180 / Math.PI) % 360 + 360) % 360, esquerda = graus > 90 && graus < 270;   /* metade esquerda: vira o texto para ler de pé */
+    const tsp = linhas.map((l, k) => `<tspan x="0" dy="${k ? f * 1.15 : (linhas.length > 1 ? -f * .55 : 0)}">${esc(l)}</tspan>`).join('');
+    ns.push(`<path d="${p}" fill="${cor}" stroke="#e9b98f" stroke-opacity=".35" stroke-width="1"/>
+      <text transform="${esquerda ? `rotate(${am * 180 / Math.PI + 180}) translate(${-(R - 14)} 0)` : `rotate(${am * 180 / Math.PI}) translate(${R - 14} 0)`}" text-anchor="${esquerda ? 'start' : 'end'}" dominant-baseline="middle" font-family="Manrope, sans-serif" font-size="${f}" font-weight="600" fill="#f7ede6">${tsp}</text>`);
+  }
+  return `<svg class="disco" viewBox="-180 -180 360 360"><defs><linearGradient id="aro" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4d6bc"/><stop offset=".5" stop-color="#c99a6c"/><stop offset="1" stop-color="#7a5232"/></linearGradient>
+    <radialGradient id="miolo" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#5a1026"/><stop offset="1" stop-color="#1a0710"/></radialGradient></defs>
+    <circle r="176" fill="url(#aro)"/><circle r="168" fill="#14060b"/>
+    <g id="roda" style="transform:rotate(${T.giro || 0}deg)">${ns.join('')}</g>
+    ${Array.from({ length: 24 }, (_, i) => { const a = i / 24 * Math.PI * 2; return `<circle cx="${172 * Math.cos(a)}" cy="${172 * Math.sin(a)}" r="2" fill="#fbe9d6" opacity=".8"/>`; }).join('')}
+    <circle r="40" fill="url(#miolo)" stroke="url(#aro)" stroke-width="2.5"/><image href="${RAIZ}img/marca/labios.webp" x="-30" y="-19" width="60" height="38"/></svg>`;
+}
+function girar() {
+  const it = itensRoleta(), n = it.length, i = Math.floor(Math.random() * n);
+  const alvo = 360 - (i + .5) * (360 / n);            /* a fatia i para no ponteiro, lá em cima */
+  const atual = T.giro || 0, voltas = 360 * (5 + Math.floor(Math.random() * 3));
+  T.giro = atual - (atual % 360) + voltas + alvo; T.girando = true;
+  $('#roda').style.transform = `rotate(${T.giro}deg)`; $('[data-acao="girar"]').disabled = true; vibra(20);
+  setTimeout(() => { T.girando = false; mostraResultado(it[i]); }, 4700);
+}
+function mostraResultado(r, selo) {
+  const escura = E.nivel === 'proibido';
+  const d = document.createElement('div'); d.className = 'resultado'; d.setAttribute('aria-label', L.resultadoAria); d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true');
+  d.innerHTML = `<div class="cartao ${escura ? 'escura' : ''}"><span class="selo">${selo || fx(L.roletaMandou, { eu: esc(eu()) })}</span><div class="t">${troca(r.t)}</div>
+    ${r.seg ? `<div class="centro-crono">${cronoHTML(r.seg, 'crono-r')}</div>` : ''}
+    ${selo ? `<div class="linha-btn"><button class="btn p" data-acao="fecharRes">${L.feito}</button></div>`
+      : `<div class="linha-btn"><button class="btn s" data-acao="fecharRes">${L.pular}</button><button class="btn p" data-acao="fecharRes" data-passa="1">${L.feito}</button></div>`}</div>`;
+  document.body.appendChild(d); vibra([30, 40, 30]);
+}
+
+/* ===== dados ===== */
+function dadoHTML(id, txt, cls = '') {
+  return `<div class="dado ${cls}" id="dado-${id}" style="transform:rotateX(${(T['rx' + id] || 0)}deg) rotateY(${(T['ry' + id] || 0)}deg)">
+    ${[1, 2, 3, 4, 5, 6].map(k => `<div class="fc f${k}">${k === 1 ? esc(txt) : ''}</div>`).join('')}</div>`;
+}
+function rolar() {
+  const d = C.dados[E.nivel] || C.dados.leve;
+  const meusA = E.meus.filter(m => m.tipo === 'acao' && m.nivel === E.nivel).map(m => m.t), meusL = E.meus.filter(m => m.tipo === 'lugar' && m.nivel === E.nivel).map(m => m.t);
+  const acoes = [...d.acoes, ...meusA], lugares = [...d.lugares, ...meusL];
+  const acao = acoes[Math.floor(Math.random() * acoes.length)], lugar = lugares[Math.floor(Math.random() * lugares.length)];
+  T.rolando = true; T.dados = { acao, lugar };
+  ['a', 'b'].forEach((k, j) => {
+    const el = $('#dado-' + k), lista = j ? lugares : acoes;
+    el.querySelectorAll('.fc').forEach((f, n) => { f.textContent = n === 0 ? (j ? lugar : acao) : lista[Math.floor(Math.random() * lista.length)]; });
+    T['rx' + k] = (T['rx' + k] || 0) + 720 + 360 * j; T['ry' + k] = (T['ry' + k] || 0) + 1080 - 360 * j;
+    el.style.transform = `rotateX(${T['rx' + k]}deg) rotateY(${T['ry' + k]}deg)`;
+  });
+  $('[data-acao="rolar"]').disabled = true; $('#frase').innerHTML = '&nbsp;'; vibra(20);
+  setTimeout(() => { T.rolando = false; render(); vibra([20, 30, 20]); }, 1650);
+}
+
+/* ===== verdade ou desafio ===== */
+const PASSO = 6;
+function cartaVD(tipo) {
+  const lvl = E.nivel, chave = `vd:${lvl}:${tipo}`;
+  const base = (C.vd[lvl] || {})[tipo === 'verdade' ? 'verdades' : 'desafios'] || [];
+  const lista = base.map(x => typeof x === 'string' ? { t: x } : x).concat(E.meus.filter(m => m.tipo === tipo && m.nivel === lvl).map(m => ({ t: m.t })));
+  const c = tira(chave, lista);
+  T.carta = Object.assign({ tipo }, c);
+  E.contador++; salvar();
+}
+function esquentaSePreciso() {
+  if (!E.esquentar || E.contador % PASSO !== 0) return;
+  const ordem = NIVEIS.map(n => n.id), i = ordem.indexOf(E.nivel), prox = ordem[i + 1];
+  if (prox && liberado(prox)) { E.nivel = prox; salvar(); aviso(fx(L.esquentando, { n: nivelObj(prox).nome })); }
+}
+
+/* ===== ações ===== */
+const ACOES = {
+  abrirEnvelope() {
+    $('#env').classList.add('aberto'); $('.envelope-tela').classList.add('aberta'); vibra([15, 60, 15]); explodeCoracoes();
+    setTimeout(() => {
+      const d = document.createElement('div'); d.className = 'carta-boas'; d.setAttribute('aria-label', L.boasAria); d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true');
+      d.innerHTML = `<div class="folha-papel"><div class="rolo"><img class="lab" src="${RAIZ}img/marca/labios.webp" alt="">
+        <h2>${L.boasH2}</h2><div class="assin">${L.marca}</div>
+        <p>${L.boasP}</p>
+        <p class="sussurro">${L.boasSussurro}</p>
+        <h4>${L.boasAntes}</h4>
+        <ul>${L.boasLi.map(x => `<li>${x}</li>`).join('')}</ul>
+        <div class="priv"><b>${L.boasPrivB}</b> ${L.boasPriv}</div>
+        <button class="btn p" data-acao="lerCarta">${L.abrirJogo}</button></div></div>`;
+      document.body.appendChild(d);
+    }, 1500);
+  },
+  lerCarta() { document.querySelector('.carta-boas')?.remove(); T = { tela: 'abertura' }; render(); },
+  ir(el) {
+    T = { tela: el.dataset.tela };
+    /* partida que já acabou recomeça do zero quando o jogo é aberto de novo */
+    [['vd', 'pvd'], ['quiz', 'pquiz']].forEach(([j, k]) => { if (T.tela === j && E[k] && E[k].jogadas >= RODADAS[j] * 2) { E[k] = { jogadas: 0, pts: [0, 0] }; salvar(); } });
+    if (T.tela === 'quiz') novaPergunta(); render();
+  },
+  comecar() {
+    const a = $('#n0').value.trim(), b = $('#n1').value.trim();
+    if (!a || !b) { aviso(L.coloquemNomes); return; }
+    E.nomes = [a, b]; salvar(); T = { tela: 'menu' }; render();
+  },
+  nivel(el) {
+    const id = el.dataset.nivel;
+    document.querySelector('.folha')?.remove();
+    if (!liberado(id)) { abreBloqueio(nivelObj(id).item); return; }
+    E.nivel = id; salvar(); T.carta = null; T.giro = 0; T.dados = null;
+    /* telas sem nada que dependa do nível só trocam o destaque: na abertura isso também guarda os nomes já digitados */
+    if (['abertura', 'ajustes'].includes(T.tela)) { document.querySelectorAll('.nv').forEach(b => b.classList.toggle('on', b.dataset.nivel === id)); return; }
+    render(true);
+  },
+  esquentar() { E.esquentar = !E.esquentar; salvar(); render(true); },
+  vd(el) { cartaVD(el.dataset.tipo); render(true); },
+  vdCumpri() { partida('pvd').pts[E.vez] += T.carta.tipo === 'desafio' ? 2 : 1; vibra([20, 30, 20]); T.carta = null; if (!fimDaVez('vd')) { esquentaSePreciso(); render(true); } },
+  vdPular() { T.carta = null; if (!fimDaVez('vd')) render(true); },
+  novaPartida() { const jogo = T.jogo; E[jogo === 'vd' ? 'pvd' : 'pquiz'] = { jogadas: 0, pts: [0, 0] }; E.vez = 0; salvar(); T = { tela: jogo }; if (jogo === 'quiz') novaPergunta(); render(); },
+  prenda(el) {
+    const quem = +el.dataset.quem; E.vez = quem; salvar();
+    const base = ((C.vd[E.nivel] || {}).desafios || []).map(x => typeof x === 'string' ? { t: x } : x);
+    mostraResultado(tira(`vd:${E.nivel}:desafio`, base), fx(L.prendaSua, { nome: esc(E.nomes[quem]) }));
+  },
+  escolheDesejo(el) { T.match.escolhido = +el.dataset.i; vibra([20, 30, 20]); render(true); },
+  favoritar() {
+    const t = T.carta.t, i = E.favoritos.findIndex(f => f.t === t);
+    if (i >= 0) E.favoritos.splice(i, 1); else E.favoritos.unshift({ t, onde: T.tela === 'datas' ? L.datasTitulo : nivelObj(E.nivel).nome + ' · ' + (L.tipo[T.carta.tipo] || T.carta.tipo) });
+    salvar(); render();
+  },
+  desfavoritar(el) { E.favoritos.splice(+el.dataset.i, 1); salvar(); render(); },
+  crono(el) { iniciaCrono(el); },
+  girar() { girar(); },
+  trocarRoleta() { if (T.girando) return; T.roletaSet = null; vibra(10); render(true); },
+  fecharRes(el) { clearInterval(cronoIntervalo); document.querySelector('.resultado')?.remove(); if (el.dataset.passa) proximaVez(); render(); },
+  rolar() { rolar(); },
+  tempoDado(el) { E.tempoDado = +el.dataset.seg; salvar(); render(); },
+  matchComeca() {
+    /* só o nível escolhido: tudo no Match é coisa de fazer agora, na temperatura que o casal pediu */
+    const pool = C.match.filter(d => d.nivel === E.nivel);
+    T = { tela: 'matchPassa', match: { lista: embaralha(pool).slice(0, MATCH_QTD), jogador: 0, i: 0, resp: [[], []] } }; render();
+  },
+  matchPronto() { T.tela = 'matchPergunta'; render(); },
+  matchResp(el) {
+    const m = T.match; m.resp[m.jogador][m.i] = el.dataset.v === '1'; m.i++; vibra(10);
+    if (m.i >= m.lista.length) { if (m.jogador === 0) { m.jogador = 1; m.i = 0; T.tela = 'matchPassa'; } else T.tela = 'matchFim'; }
+    render();
+  },
+  quizResp(el) { if (el.dataset.v === '1') { partida('pquiz').pts[E.vez]++; vibra([20, 30, 20]); } if (!fimDaVez('quiz')) { novaPergunta(); render(true); } },
+  ocasiao(el) { T.ocasiao = el.dataset.k || null; T.carta = null; T.datasFim = false; render(); },
+  cartaData() {
+    const k = 'datas:' + T.ocasiao, l = C.datas[T.ocasiao];
+    if (T.carta) { proximaVez(); if ((E.usados[k] || []).length >= l.length) { T.carta = null; T.datasFim = true; render(); return; } }
+    T.carta = tira(k, l); render(true);
+  },
+  datasDeNovo() { delete E.usados['datas:' + T.ocasiao]; salvar(); T.datasFim = false; T.carta = null; render(); },
+  noitesDeNovo(el) {
+    const feitas = E.noitesFeitas.length, tudo = feitas >= cicloAtual().length;
+    if (feitas && !tudo && !el.dataset.ok) { el.dataset.ok = '1'; el.textContent = L.toqueApagar; setTimeout(() => { if (el.isConnected) { delete el.dataset.ok; el.textContent = L.recomecar; } }, 3500); return; }
+    const vistas = [...new Set([...(E.noitesVistas || []), ...cicloAtual()])];
+    E.noitesVistas = vistas.length >= C.noites.length ? [] : vistas;
+    E.noitesCiclo = novoCiclo(E.noitesVistas); E.noitesFeitas = []; salvar(); render(true);
+  },
+  fantasia() { if (T.fantasia) proximaVez(); T.fantasia = tira('fantasia', C.fantasia); render(true); },
+  distancia() { if (T.carta) proximaVez(); T.carta = tira('distancia', C.distancia.map(t => ({ t }))); render(true); },
+  noite(el) {
+    const i = +el.dataset.i, n = C.noites[cicloAtual()[i]];
+    const d = document.createElement('div'); d.className = 'resultado'; d.setAttribute('aria-label', L.resultadoAria); d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true');
+    d.innerHTML = `<div class="cartao"><span class="selo">${fx(L.noite, { n: i + 1 })}</span><div class="t" style="font-size:28px">${esc(n.titulo)}</div>
+      <ol class="passos">${n.passos.map(p => `<li>${troca(p)}</li>`).join('')}</ol>
+      <div class="linha-btn"><button class="btn s" data-acao="fecharRes">${L.fechar}</button><button class="btn p" data-acao="noiteFeita" data-i="${i}">${L.fizemos}</button></div></div>`;
+    document.body.appendChild(d);
+  },
+  noiteFeita(el) { const i = +el.dataset.i; if (!E.noitesFeitas.includes(i)) E.noitesFeitas.push(i); salvar(); document.querySelector('.resultado')?.remove(); render(true); if (E.noitesFeitas.length >= cicloAtual().length) festa(); },
+  salvarMeu() {
+    const t = $('#cTexto').value.trim(); if (!t) { aviso(L.escrevaTexto); return; }
+    E.meus.unshift({ t, tipo: $('#cTipo').value, nivel: $('#cNivel').value }); salvar(); aviso(L.guardado); render();
+  },
+  apagarMeu(el) { E.meus.splice(+el.dataset.i, 1); salvar(); render(); },
+  salvarNomes() { const a = $('#n0').value.trim(), b = $('#n1').value.trim(); if (a && b) { E.nomes = [a, b]; salvar(); aviso(L.nomesSalvos); } },
+  zerarUsados() { E.usados = {}; E.contador = 0; salvar(); aviso(L.embaralhado); },
+  bloqueado(el) { abreBloqueio(el.dataset.item); },
+  fecharFolha() { document.querySelector('.folha')?.remove(); },
+  abreNiveis() { abreNiveis(); },
+  instalar() { if (window.__prompt) { window.__prompt.prompt(); window.__prompt = null; render(); } },
+};
+/* as perguntas seguem o nível escolhido, como o resto do jogo */
+function novaPergunta() {
+  const doNivel = C.quiz.filter(q => q.nivel === E.nivel);
+  T.quiz = tira('quiz:' + E.nivel, doNivel.length ? doNivel : C.quiz);
+}
+function chipNivel() {
+  const n = nivelObj(E.nivel);
+  return `<button class="chip-nivel" data-acao="abreNiveis" aria-label="${L.trocarNivelAria}"><span class="ni" style="color:${n.cor}">${n.ic}</span><span><small>${L.nivel}</small>${n.nome}</span>${I.seta}</button>`;
+}
+function abreNiveis() {
+  const d = document.createElement('div'); d.className = 'folha'; d.setAttribute('aria-label', L.escolhaNivel); d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true');
+  d.innerHTML = `<div class="corpo"><span class="selo">${L.segueNivel}</span><h3>${L.escolhaNivel}</h3>
+    <div class="op-niveis">${NIVEIS.map(n => `<button class="op-nivel ${E.nivel === n.id ? 'on' : ''}" data-acao="nivel" data-nivel="${n.id}">
+      <span class="ni" style="color:${n.cor}">${n.ic}</span><span><b>${n.nome}</b><small>${n.desc}</small></span><span class="fim">${liberado(n.id) ? (E.nivel === n.id ? I.check : '') : I.cadeado}</span></button>`).join('')}</div>
+    <button class="btn f" data-acao="fecharFolha">${L.fechar}</button></div>`;
+  d.addEventListener('click', e => { if (e.target === d) d.remove(); });
+  document.body.appendChild(d);
+}
+function abreBloqueio(item) {
+  const p = PACOTES[item]; if (!p) return;
+  const d = document.createElement('div'); d.className = 'folha'; d.setAttribute('aria-label', p.titulo); d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true');
+  d.innerHTML = `<div class="corpo"><span class="selo" style="color:var(--proibido)">${I.cadeado} ${L.naoLiberado}</span><h3>${p.titulo}</h3><p>${p.texto}</p>
+    <ul>${p.itens.map(x => `<li>${x}</li>`).join('')}</ul>
+    <a class="btn p" href="${CHECKOUT[item]}" target="_blank" rel="noopener" style="text-decoration:none">${fx(L.liberar, { p: p.titulo })}</a>
+    <button class="btn f" data-acao="fecharFolha">${L.agoraNao}</button></div>`;
+  d.addEventListener('click', e => { if (e.target === d) d.remove(); });
+  document.body.appendChild(d);
+}
+
+/* ===== instalação ===== */
+const instalado = () => window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); window.__prompt = e; if (T.tela === 'menu') render(); });
+function blocoInstalar() {
+  if (instalado()) return '';
+  if (window.__prompt) return `<div class="instalar"><img src="${RAIZ}img/icones/icone-192.png" alt=""><span><b>${L.instB}</b><small>${L.instS}</small></span><button class="btn p" data-acao="instalar">${L.instalar}</button></div>`;
+  if (ios) return `<div class="instalar"><img src="${RAIZ}img/icones/icone-192.png" alt=""><span><b>${L.iosB}</b><small>${L.iosS}</small></span></div>`;
+  return '';
+}
+
+/* ===== render e eventos ===== */
+function render(mesmaTela) {
+  if (!ACESSO.includes('base')) T = { tela: 'trancado' };
+  const f = TELAS[T.tela] || TELAS.menu;
+  $('#app').innerHTML = f();
+  if (mesmaTela) $('#app .tela')?.classList.add('fica');   /* sem a entrada animada: só o conteúdo muda */
+  if (T.tela === 'envelope') iniciaCoracoes(); else paraCoracoes();
+  if (!mesmaTela && (T.tela === 'fim' || (T.tela === 'matchFim' && T.match.lista.some((_, i) => T.match.resp[0][i] && T.match.resp[1][i])))) festa();
+  if (!mesmaTela) window.scrollTo(0, 0);
+  /* a carta nasce de costas e vira no quadro seguinte, para a animação 3D acontecer */
+  document.querySelectorAll('.carta[data-virar]').forEach(c => { void c.offsetWidth; setTimeout(() => c.classList.add('virada'), 40); });
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-acao]'); if (!el) return;
+  const a = ACOES[el.dataset.acao]; if (a) { e.preventDefault(); a(el); }
+});
+
+/* ===== service worker e o nível atravessando o isolamento do iPhone ===== */
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register(RAIZ + 'sw.js', { scope: RAIZ }).then(() => navigator.serviceWorker.ready).then(reg => {
+    const sw = reg.active; if (!sw) return;
+    navigator.serviceWorker.addEventListener('message', ev => {
+      const d = ev.data || {}; if (d.tipo !== 'acesso' || !Array.isArray(d.itens)) return;
+      const antes = ACESSO.length; ACESSO = [...new Set([...ACESSO, ...d.itens])]; LS.gravar('dc_acesso', ACESSO);
+      if (ACESSO.length !== antes) { if (T.tela === 'trancado') T = { tela: 'envelope' }; render(); }
+    });
+    sw.postMessage({ tipo: 'gravar-acesso', itens: ACESSO });
+  }).catch(() => {});
+}
+render();
+</script>
+</body>
+</html>
