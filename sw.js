@@ -3,7 +3,7 @@
    que é por origem e atravessa o isolamento do iPhone entre o Safari e o app instalado (o localStorage não atravessa).
    Rede primeiro, cache como reserva: com internet vem sempre a versão nova, sem ela continua funcionando.
    Subir a VERSÃO em gerar.py a cada mudança, senão o celular segue com o arquivo velho. */
-const CACHE = 'desejos-v4';
+const CACHE = 'desejos-v5';
 const PASTAS = ["a7k2qm", "p9x4re", "d3n8tw", "u6h1vz", "t5w9ck"];
 const ARQS = ['cartas.js', 'img/marca/labios.webp', 'img/icones/icone-192.png', 'img/icones/favicon-32.png', 'img/icones/apple-touch-180.png',
   ...PASTAS.map(p => p + '/'), ...PASTAS.map(p => p + '/manifest.webmanifest')];
