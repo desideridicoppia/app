@@ -376,6 +376,18 @@ const LS = { ler(k, p) { try { const v = JSON.parse(localStorage.getItem(k)); re
              gravar(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} } };
 let ACESSO = [...new Set([...LS.ler('dc_acesso', []), ...ACESSO_PASTA])];
 LS.gravar('dc_acesso', ACESSO);
+/* produtos liberados pelo e-mail da compra (ativacao.js): o painel reconhece o ID do produto na Hotmart e devolve
+   a chave daqui (8830914 base, 8830951 proibido, 8830972 datas, 8852875 pro). So soma, nunca tira. */
+const DO_EMAIL = p => (Array.isArray(p) ? p : []).filter(x => ['base', 'proibido', 'datas', 'pro'].includes(x));
+const somarDoEmail = p => {
+  const antes = ACESSO.length; ACESSO = [...new Set([...ACESSO, ...DO_EMAIL(p)])];
+  if (ACESSO.length === antes) return false;
+  LS.gravar('dc_acesso', ACESSO);
+  try { navigator.serviceWorker && navigator.serviceWorker.controller && navigator.serviceWorker.controller.postMessage({ tipo: 'gravar-acesso', itens: ACESSO }); } catch (e) {}
+  return true;
+};
+somarDoEmail(window.Ativacao && window.Ativacao.produtos);
+document.addEventListener('ativacao-produtos', e => { if (somarDoEmail(e.detail)) { if (T.tela === 'trancado') T = { tela: 'envelope' }; render(); } });
 const tem = x => ACESSO.includes(x);
 
 /* ===== Estado ===== */
