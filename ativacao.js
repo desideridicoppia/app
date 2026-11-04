@@ -34,7 +34,11 @@
     painel: 'o=2026-10-desejos-do-casal',
     comprar: 'https://desideridicoppia.com/',
     marca: 'Desideri di Coppia',
-    suporte: 'contatti@desideridicoppia.com'
+    suporte: 'contatti@desideridicoppia.com',
+    /* TOLLERANTE (04/11/2026): enquanto o webhook da Hotmart e a base de compras nao estiverem conferidos,
+       e-mail nao encontrado LIBERA (provisorio) e nunca volta a pedir o e-mail. Reembolsado continua barrado.
+       Modo estrito: false aqui E ACESSO_ESTRITO=2026-10-desejos-do-casal no painel. */
+    tolerante: true
   };
   var T = {
     titulo: 'Attiva il tuo gioco',
@@ -331,6 +335,7 @@
         if (minha !== tentativa) return Promise.resolve(null);
         return conferir(h, voluntario).then(function (s) {
           if (minha !== tentativa) return null;
+          if (s === 'nao_achei' && OFERTA.tolerante && !voluntario) return 'erro';
           if (s === 'nao_achei' && Date.now() - inicio < ESPERA_VENDA_MS) {
             aviso(T.esperando);
             return new Promise(function (ok) { setTimeout(ok, 10000); }).then(tentar);
@@ -453,7 +458,7 @@
         gravar({ estado: 'ativo', email: st.email, h: st.h, em: Date.now(), p: ultimoP || st.p || [] });
         if (eraTrava) desmontar();
         if (mudou || eraTrava) avisarProdutos();
-      } else if (s === 'nao_achei' && st.estado === 'provisorio') {
+      } else if (s === 'nao_achei' && st.estado === 'provisorio' && !OFERTA.tolerante) {
         gravar({ estado: 'pendente', email: st.email });
         montar(telaEmail(T.naoAcheiDepois));
       }
