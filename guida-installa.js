@@ -22,6 +22,7 @@
    '#gi .bar .sh{stroke:#ff8a5b;animation:pu 1.6s infinite}@keyframes pu{50%{transform:scale(1.3)}}' +
    '#gi .arr{position:absolute;left:50%;bottom:40px;line-height:1;transform:translateX(-50%);color:#ff8a5b;font-size:26px;animation:bo 1.2s infinite}@keyframes bo{50%{bottom:46px}}' +
    '#gi .menu{position:absolute;left:8%;right:8%;top:10px;white-space:nowrap;background:#f7ede6;color:#12060b;border-radius:10px;padding:7px 10px;font-size:12.5px;font-weight:600;display:flex;justify-content:space-between;align-items:center;animation:ap 3.2s infinite}' +
+   '#gi .menu svg{width:16px;height:16px;flex:none;stroke:#12060b}#gi .arr{z-index:2}' +
    '@keyframes ap{0%,35%{opacity:0;transform:translateY(8px)}50%,100%{opacity:1;transform:none}}' +
    '#gi .top{position:absolute;right:14px;top:10px;color:#ff8a5b;font-size:26px;animation:bo2 1.2s infinite}@keyframes bo2{50%{top:2px}}#gi .ok{color:#e58ba0;font-size:13px;text-align:center;margin-top:8px;min-height:16px}';
   var SH = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 3v12M7 8l5-5 5 5M5 12v8h14v-8"/></svg>';
